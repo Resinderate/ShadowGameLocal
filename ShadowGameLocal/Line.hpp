@@ -1,0 +1,14 @@
+#ifndef LINE_HPP
+#define LINE_HPP
+
+#include "SFML/Graphics.hpp"
+class Line
+{
+public:
+	Line();
+	Line(sf::Vector2f pStart, sf::Vector2f pEnd);
+
+	sf::Vector2f start;
+	sf::Vector2f end;
+};
+#endif
