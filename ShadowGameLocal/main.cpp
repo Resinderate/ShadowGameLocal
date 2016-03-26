@@ -2,6 +2,7 @@
 #include "VectorAlgebra2D.hpp"
 #include "ShadowFactory.hpp"
 #include "Player.hpp"
+#include "Attributes.hpp"
 #include <iostream>
 
 int main()
@@ -10,6 +11,7 @@ int main()
 	sf::Vector2f player(0, 0);
 	//Kevin
 	Player p1 = Player();
+	Player p2 = Player("Kevin", "pass", sf::Vector2f(0,20), sf::Vector2f(0.078125, 0.078125), 2);
 	
 	ShadowFactory shadowFactory;
 	if (!shadowFactory.load())
@@ -30,12 +32,38 @@ int main()
 			}
 		}
 
+		//if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_LEFT]))
+		//{
+		//	// left key is pressed: move our character
+		//	p1.Move(sf::Vector2f(-20, 0));
+		//}
+		//if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_RIGHT]))
+		//{
+		//	// right key is pressed: move our character
+		//	p1.Move(sf::Vector2f(20, 0));
+		//}
+		//if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_DOWN]))
+		//{
+		//	// down key is pressed: move our character
+		//	p1.Move(sf::Vector2f(0, 20));
+		//}
+		//if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_UP]))
+		//{
+		//	// up key is pressed: move our character
+		//	p1.Move(sf::Vector2f(0, -20));
+		//}
+
+
 		//update
 
 		window.clear(sf::Color::White);
 		for (auto s : shadowFactory.getShadows(player, sf::Color::Black))
 			window.draw(s);
+
+		p1.Update();
+		p2.Update();
 		window.draw(p1);
+		window.draw(p2);
 		window.display();
 	}
 

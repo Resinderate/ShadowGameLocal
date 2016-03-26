@@ -162,6 +162,7 @@
     <ClCompile Include="Trigonometry.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attributes.hpp" />
     <ClInclude Include="Line.hpp" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Player.hpp" />
