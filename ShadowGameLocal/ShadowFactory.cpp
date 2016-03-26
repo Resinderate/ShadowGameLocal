@@ -7,6 +7,9 @@ std::vector<sf::VertexArray> ShadowFactory::getShadows(sf::Vector2f playerPositi
 
 	for (auto l : lines)
 	{
+		if (playerPosition == l.start || playerPosition == l.end)
+			continue;
+
 		sf::VertexArray shadow(sf::TrianglesStrip, 4);
 		float shadowLength = 30;
 
