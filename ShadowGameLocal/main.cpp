@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 #include "VectorAlgebra2D.hpp"
 #include "ShadowFactory.hpp"
 
@@ -6,7 +6,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1600, 800), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 	sf::Vector2f player(0, 0);
 
 	ShadowFactory shadowFactory;
