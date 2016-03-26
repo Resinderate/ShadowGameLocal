@@ -57,7 +57,7 @@ int main()
 		//update
 
 		window.clear(sf::Color::White);
-		for (auto s : shadowFactory.getShadows(player, sf::Color::Black))
+		for (auto s : shadowFactory.getShadows(p1.getPosition(), sf::Color::Black))
 			window.draw(s);
 
 		p1.Update();
