@@ -38,6 +38,12 @@ void Player::Update()
 //Move the player by one square in a certain direction
 void Player::Move(sf::Vector2f p_direction)
 {
+
+	// Get the global bounds.
+	// Move those.
+	//ShadowFactory::doesCollideWithWorld(bounds);
+	// check if it collides, if not go ahead with the move.
+	
 	sf::Vector2f temp = getPosition();
 	setPosition(temp.x += p_direction.x, temp.y + p_direction.y);
 }

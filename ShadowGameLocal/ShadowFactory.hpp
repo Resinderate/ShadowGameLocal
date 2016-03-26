@@ -10,13 +10,13 @@
 class ShadowFactory
 {
 public:
-	std::vector<sf::VertexArray> getShadows(sf::Vector2f playerPosition, sf::Color color);
-	bool load();
-	bool doesCollideWithWorld(sf::FloatRect p_bounds);
+	static std::vector<sf::VertexArray> getShadows(sf::Vector2f playerPosition, sf::Color color);
+	static bool load();
+	static bool doesCollideWithWorld(sf::FloatRect p_bounds);
 
 private:
-	std::vector<sf::FloatRect> shadowCasters;
+	static std::vector<sf::FloatRect> shadowCasters;
 
-	std::vector<Line> getShadowLines();
+	static std::vector<Line> getShadowLines();
 };
 #endif

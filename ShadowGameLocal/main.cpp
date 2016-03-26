@@ -13,8 +13,7 @@ int main()
 	Player p1 = Player();
 	Player p2 = Player("Kevin", "pass", sf::Vector2f(0,20), sf::Vector2f(0.078125, 0.078125), 2);
 	
-	ShadowFactory shadowFactory;
-	if (!shadowFactory.load())
+	if (!ShadowFactory::load())
 		return -1;
 
 	while (window.isOpen())
@@ -57,7 +56,7 @@ int main()
 		//update
 
 		window.clear(sf::Color::White);
-		for (auto s : shadowFactory.getShadows(player, sf::Color::Black))
+		for (auto s : ShadowFactory::getShadows(p1.getPosition(), sf::Color::Black))
 			window.draw(s);
 
 		p1.Update();
