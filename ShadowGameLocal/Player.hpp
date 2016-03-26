@@ -1,6 +1,7 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 #include "SFML\Graphics.hpp"
+#include "ShadowFactory.hpp"
 //Kevin
 class Player : public sf::Sprite
 {
