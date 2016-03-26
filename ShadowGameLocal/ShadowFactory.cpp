@@ -1,8 +1,5 @@
 #include "ShadowFactory.hpp"
 
-std::vector<sf::FloatRect> ShadowFactory::shadowCasters = std::vector<sf::FloatRect>();
-
-
 std::vector<sf::VertexArray> ShadowFactory::getShadows(sf::Vector2f playerPosition, sf::Color color)
 {
 	auto lines = getShadowLines();

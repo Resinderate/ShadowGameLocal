@@ -38,9 +38,11 @@ void Player::Update(ShadowFactory p_shadowFactory)
 //Move the player by one square in a certain direction
 void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 {	
-	sf::Vector2f temp = getPosition();
-	temp += p_direction;
-	if (p_shadowFactory.doesCollideWithWorld(sf::FloatRect(temp.x, temp.y, 20, 20)))
+	sf::FloatRect player = getGlobalBounds();
+	player.left += p_direction.x;
+	player.top += p_direction.y;
+
+	if (p_shadowFactory.doesCollideWithWorld(player))
 		move(p_direction);
 }
 
