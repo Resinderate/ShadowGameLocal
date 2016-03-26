@@ -39,6 +39,7 @@ std::vector<sf::VertexArray> ShadowFactory::getShadows(sf::Vector2f playerPositi
 
 bool ShadowFactory::load()
 {
+	// Might be able to perform some optimizations here.
 	float rectSize = 20;
 
 	sf::Image map;
@@ -46,8 +47,6 @@ bool ShadowFactory::load()
 		return false;
 	
 	auto size = map.getSize();
-	std::string log = std::to_string(size.x) + ", " + std::to_string(size.y);
-	Log(log);
 
 	for (int i = 0; i < size.x; i++)
 	{
@@ -58,11 +57,20 @@ bool ShadowFactory::load()
 				shadowCasters.push_back(sf::FloatRect(i * rectSize, j * rectSize, rectSize, rectSize));
 			}
 		}
-	}
-	log = "Number of rects: " + std::to_string(shadowCasters.size());
-	Log(log);
-	
+	}	
 
+	return true;
+}
+
+bool ShadowFactory::doesCollideWithWorld(sf::FloatRect p_bounds)
+{
+	for (auto s : shadowCasters)
+	{
+		if (s.intersects(p_bounds))
+		{
+			return false;
+		}
+	}
 	return true;
 }
 
