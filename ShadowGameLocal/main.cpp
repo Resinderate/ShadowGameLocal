@@ -1,14 +1,16 @@
 #include "SFML/Graphics.hpp"
 #include "VectorAlgebra2D.hpp"
 #include "ShadowFactory.hpp"
-
+#include "Player.hpp"
 #include <iostream>
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 	sf::Vector2f player(0, 0);
-
+	//Kevin
+	Player p1 = Player();
+	
 	ShadowFactory shadowFactory;
 	if (!shadowFactory.load())
 		return -1;
@@ -33,6 +35,7 @@ int main()
 		window.clear(sf::Color::White);
 		for (auto s : shadowFactory.getShadows(player, sf::Color::Black))
 			window.draw(s);
+		window.draw(p1);
 		window.display();
 	}
 

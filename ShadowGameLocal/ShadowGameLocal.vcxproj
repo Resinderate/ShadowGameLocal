@@ -155,12 +155,14 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="ShadowFactory.cpp" />
     <ClCompile Include="Trigonometry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Line.hpp" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="Player.hpp" />
     <ClInclude Include="ResourceHolder.hpp" />
     <ClInclude Include="ShadowFactory.hpp" />
     <ClInclude Include="Trigonometry.hpp" />
