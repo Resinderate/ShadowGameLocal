@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 #include "VectorAlgebra2D.hpp"
 #include "ShadowFactory.hpp"
 
