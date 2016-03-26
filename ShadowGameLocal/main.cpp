@@ -62,8 +62,10 @@ int main()
 
 		p1.Update();
 		p2.Update();
+
 		window.draw(p1);
 		window.draw(p2);
+
 		window.display();
 	}
 
