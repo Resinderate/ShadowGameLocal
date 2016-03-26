@@ -5,7 +5,7 @@ Player::Player()
 {
 	m_username = "Default";
 	m_password = "Default";
-	setPosition(sf::Vector2f(0, 0));
+	setPosition(sf::Vector2f(20, 0));
 	setScale(sf::Vector2f(0.078125, 0.078125));
 	setColor(sf::Color::Red);
 	
