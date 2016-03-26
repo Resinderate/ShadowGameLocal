@@ -12,6 +12,7 @@ public:
 private:		
 	std::string m_username;
 	std::string m_password;
+	sf::Texture m_texture;
 };
 
 #endif
