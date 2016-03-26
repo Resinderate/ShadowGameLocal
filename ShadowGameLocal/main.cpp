@@ -60,8 +60,8 @@ int main()
 		for (auto s : shadowFactory.getShadows(p1.getPosition(), sf::Color::Black))
 			window.draw(s);
 
-		p1.Update();
-		p2.Update();
+		p1.Update(shadowFactory);
+		p2.Update(shadowFactory);
 
 		window.draw(p1);
 		window.draw(p2);
