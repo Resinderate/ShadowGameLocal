@@ -9,6 +9,9 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+	sf::View p1View(sf::FloatRect(0, 0, 800, 600));
+	window.setView(p1View);
+
 	//Kevin
 	Player p1 = Player("Kevin", "pass", sf::Vector2f(100, 100), sf::Vector2f(0.078125, 0.078125), 1);
 	
@@ -32,6 +35,8 @@ int main()
 
 		// pdate
 		p1.Update(shadowFactory);
+		p1View.setCenter(p1.getPosition());
+		window.setView(p1View);
 
 		// Draw
 		window.clear(sf::Color::White);
