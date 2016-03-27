@@ -45,6 +45,7 @@ bool ShadowFactory::load()
 	sf::Image map;
 	if (!map.loadFromFile("shadowmap.png"))
 		return false;
+		
 	
 	auto size = map.getSize();
 
@@ -68,10 +69,10 @@ bool ShadowFactory::doesCollideWithWorld(sf::FloatRect p_bounds)
 	{
 		if (s.intersects(p_bounds))
 		{
-			return false;
+			return true;
 		}
 	}
-	return true;
+	return false;
 }
 
 std::vector<Line> ShadowFactory::getShadowLines()

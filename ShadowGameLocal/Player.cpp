@@ -42,7 +42,7 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 	player.left += p_direction.x;
 	player.top += p_direction.y;
 
-	if (p_shadowFactory.doesCollideWithWorld(player))
+	if (!p_shadowFactory.doesCollideWithWorld(player))
 		move(p_direction);
 }
 
