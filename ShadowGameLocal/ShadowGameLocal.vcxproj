@@ -159,6 +159,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ShadowFactory.cpp" />
+    <ClCompile Include="TexturedWorld.cpp" />
     <ClCompile Include="Trigonometry.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +169,7 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="ResourceHolder.hpp" />
     <ClInclude Include="ShadowFactory.hpp" />
+    <ClInclude Include="TexturedWorld.hpp" />
     <ClInclude Include="Trigonometry.hpp" />
     <ClInclude Include="VectorAlgebra2D.hpp" />
   </ItemGroup>
