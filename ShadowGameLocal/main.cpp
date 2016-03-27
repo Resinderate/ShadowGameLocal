@@ -87,8 +87,11 @@ int main()
 		castingPos = sf::Vector2f(p2.getPosition().x + p2.getGlobalBounds().width / 2, p2.getPosition().y + p2.getGlobalBounds().height / 2);
 		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
 			window.draw(sha);
+		
+		// Draw hud
 		window.setView(window.getDefaultView());
 		window.draw(hud);
+		
 		window.display();
 	}
 
