@@ -40,10 +40,10 @@ std::vector<sf::VertexArray> ShadowFactory::getShadows(sf::Vector2f playerPositi
 bool ShadowFactory::load()
 {
 	// Might be able to perform some optimizations here.
-	float rectSize = 20;
+	float rectSize = 16;
 
 	sf::Image map;
-	if (!map.loadFromFile("shadowmap.png"))
+	if (!map.loadFromFile("maps/shadowmap.png"))
 		return false;
 		
 	

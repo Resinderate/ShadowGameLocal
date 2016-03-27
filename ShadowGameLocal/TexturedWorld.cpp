@@ -2,28 +2,69 @@
 
 bool TexturedWorld::load()
 {
-	loadTilesheet();
-	loadTextures();
-	loadSprites();
-	return false;
+	if (!loadTilesheet())
+		return false;
+	if (!loadTextures())
+		return false;
+	if (!loadSprites())
+		return false;
+	return true;
+}
+
+std::vector<sf::Sprite>& TexturedWorld::getTexturedWorld()
+{
+	return m_spriteTiles;
 }
 
 bool TexturedWorld::loadTilesheet()
 {
-	m_tileSheet = sf::Image();
-	m_tileSheet.loadFromFile("somefile.png");
-
-	// error checking pls.
+	if (!m_tileSheet.loadFromFile("spritesheet/spritesheet.png"))
+		return false;
+	return true;
 }
 
 bool TexturedWorld::loadTextures()
 {
-	// Load the textures needed from the tilesheet. Give them names to use in the Sprite loading phase.
-	return false;
+	sf::Texture tex;
+	for (auto s : TEXTURE_MAPPINGS)
+	{
+		if (!tex.loadFromImage(m_tileSheet, s.second))
+			return false;
+		m_textureMap.insert(std::pair<std::string, sf::Texture>(s.first, tex));
+	}
+	return true;
 }
 
 bool TexturedWorld::loadSprites()
 {
-	// Check all the colors of the map thing and create sprites based on it.
-	return false;
+	sf::Sprite spr;
+	int tileSize = 64;
+
+	sf::Image texWorld;
+	if (!texWorld.loadFromFile("maps/texturemap.png"))
+		return false;
+
+	auto size = texWorld.getSize();
+	std::string texID = "";
+
+	for (int i = 0; i < size.x; i++)
+	{
+		for (int j = 0; j < size.y; j++)
+		{
+			// Check for the colors.
+			for (auto col : COLOR_MAPPINGS)
+			{
+				if (texWorld.getPixel(i, j) == col.first)
+				{
+					texID = col.second;
+					spr.setTexture(m_textureMap[texID]);
+					spr.setPosition(i * tileSize, j * tileSize);
+					m_spriteTiles.push_back(spr);
+					break;
+				}
+			}
+		}
+	}
+
+	return true;
 }

@@ -3,6 +3,7 @@
 #include "ShadowFactory.hpp"
 #include "Player.hpp"
 #include "Attributes.hpp"
+#include "TexturedWorld.hpp"
 #include <iostream>
 
 int main()
@@ -14,6 +15,10 @@ int main()
 	ShadowFactory shadowFactory;
 	if (!shadowFactory.load())
 		return -1;
+
+	TexturedWorld texturedWorld;
+	if (!texturedWorld.load())
+		return -2;
 
 	while (window.isOpen())
 	{
@@ -30,10 +35,14 @@ int main()
 
 		// Draw
 		window.clear(sf::Color::White);
-		for (auto s : shadowFactory.getShadows(sf::Vector2f(p1.getPosition().x + p1.getGlobalBounds().width / 2,
-															p1.getPosition().y + p1.getGlobalBounds().height / 2), 
-															sf::Color::Black))
-			window.draw(s);
+		// Draw background
+		for (auto spr : texturedWorld.getTexturedWorld())
+			window.draw(spr);
+
+		// Draw shadows
+		sf::Vector2f castingPos = sf::Vector2f(p1.getPosition().x + p1.getGlobalBounds().width / 2, p1.getPosition().y + p1.getGlobalBounds().height / 2);
+		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
+			window.draw(sha);
 		window.draw(p1);
 		window.display();
 	}
