@@ -8,13 +8,13 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(1260, 700), "SFML works!");
 	// P1 view.
-	sf::View p1View(sf::FloatRect(0, 0, 400, 600));
+	sf::View p1View(sf::FloatRect(0, 0, 600, 600));
 	p1View.setViewport(sf::FloatRect(0, 0, 0.5f, 1));
 
 	// P2 view.
-	sf::View p2View(sf::FloatRect(0, 0, 400, 600));
+	sf::View p2View(sf::FloatRect(0, 0, 600, 600));
 	p2View.setViewport(sf::FloatRect(0.5f, 0, 0.5f, 1));
 
 	//Kevin
@@ -28,6 +28,15 @@ int main()
 	TexturedWorld texturedWorld;
 	if (!texturedWorld.load())
 		return -2;
+
+	sf::Sprite hud;
+	sf::Texture hudT;
+	if (!hudT.loadFromFile("spritesheet/HUD.png"))
+		return -2;
+
+	hud.setTexture(hudT);
+
+	
 
 	while (window.isOpen())
 	{
@@ -78,7 +87,8 @@ int main()
 		castingPos = sf::Vector2f(p2.getPosition().x + p2.getGlobalBounds().width / 2, p2.getPosition().y + p2.getGlobalBounds().height / 2);
 		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
 			window.draw(sha);
-
+		window.setView(window.getDefaultView());
+		window.draw(hud);
 		window.display();
 	}
 
