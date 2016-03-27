@@ -58,7 +58,13 @@ bool ShadowFactory::load()
 				shadowCasters.push_back(sf::FloatRect(i * rectSize, j * rectSize, rectSize, rectSize));
 			}
 		}
-	}	
+	}
+	std::string s = "Unoptimized Rects: " + std::to_string(shadowCasters.size());
+	Log(s);
+	// Turn these shadow casters into better shadowCasters.
+	optimizeShadowCasters();
+	s = "Optimized Rects: " + std::to_string(shadowCasters.size());
+	Log(s);
 
 	return true;
 }
@@ -89,4 +95,50 @@ std::vector<Line> ShadowFactory::getShadowLines()
 	}
 
 	return lines;
+}
+
+void ShadowFactory::optimizeShadowCasters()
+{
+	// Go through and reduce the shadowCasters down into a smaller possible number of rects.
+	bool hit = true;
+	while (hit)
+	{
+		hit = false;
+		for (auto itr = shadowCasters.begin(); itr != shadowCasters.end(); itr++)
+		{
+			for (auto jtr = shadowCasters.begin(); jtr != shadowCasters.end(); jtr++)
+			{
+				if (itr != jtr)
+				{
+					// If it lines up right.
+					if ((itr->top == jtr->top) && (itr->height == jtr->height) && (itr->left + itr->width == jtr->left))
+					{
+						// Add the width to the first one.
+						itr->width += jtr->width;
+
+						// Remove the second one.
+						if (itr > jtr)
+							itr = shadowCasters.begin();
+						jtr = shadowCasters.erase(jtr);
+						hit = true;
+					}
+					else if ((itr->left == jtr->left) && (itr->width == jtr->width) && (itr->top + itr->height == jtr->top))
+					{
+						// Add the height to the first one
+						itr->height += jtr->height;
+
+						// Remove the second one.
+						if (itr > jtr)
+							itr = shadowCasters.begin();
+						jtr = shadowCasters.erase(jtr);
+						hit = true;
+					}
+
+					if (jtr == shadowCasters.end())
+						break;
+				}
+			}
+		}
+	}
+	
 }

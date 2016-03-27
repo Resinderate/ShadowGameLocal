@@ -50,50 +50,51 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 //Handle input from both players in splitscreen version of game by using two keysets @see Attributes.h
 void Player::InputHandler(ShadowFactory p_shadowFactory)
 {
+	int moveAmount = 10;
 	switch (m_keySet)
 	{
 	case 1:
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_LEFT]))
 		{
 			// left key is pressed: move our character
-			Move(sf::Vector2f(-20, 0), p_shadowFactory);
+			Move(sf::Vector2f(-moveAmount, 0), p_shadowFactory);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
-			Move(sf::Vector2f(20, 0), p_shadowFactory);
+			Move(sf::Vector2f(moveAmount, 0), p_shadowFactory);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
-			Move(sf::Vector2f(0, 20), p_shadowFactory);
+			Move(sf::Vector2f(0, moveAmount), p_shadowFactory);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
-			Move(sf::Vector2f(0, -20), p_shadowFactory);
+			Move(sf::Vector2f(0, -moveAmount), p_shadowFactory);
 		}
 		break;
 	case 2:
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_LEFT]))
 		{
 			// left key is pressed: move our character
-			Move(sf::Vector2f(-20, 0), p_shadowFactory);
+			Move(sf::Vector2f(-moveAmount, 0), p_shadowFactory);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
-			Move(sf::Vector2f(20, 0), p_shadowFactory);
+			Move(sf::Vector2f(moveAmount, 0), p_shadowFactory);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
-			Move(sf::Vector2f(0, 20), p_shadowFactory);
+			Move(sf::Vector2f(0, moveAmount), p_shadowFactory);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
-			Move(sf::Vector2f(0, -20), p_shadowFactory);
+			Move(sf::Vector2f(0, -moveAmount), p_shadowFactory);
 		}
 		break;
 	}

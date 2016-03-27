@@ -18,5 +18,6 @@ private:
 	std::vector<sf::FloatRect> shadowCasters;
 
 	std::vector<Line> getShadowLines();
+	void optimizeShadowCasters();
 };
 #endif
