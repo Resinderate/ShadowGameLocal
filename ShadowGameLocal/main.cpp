@@ -46,6 +46,7 @@ sf::RenderWindow window(sf::VideoMode(1260, 700), "SFML works!");
 
 int main()
 {
+	Load();
 	timer.restart();
 	while (window.isOpen())
 	{
