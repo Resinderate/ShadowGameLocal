@@ -119,25 +119,21 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 		{
 			// left key is pressed: move our character
 			m_velocity.x -= moveAmount;
-			setRotation(left);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
 			m_velocity.x += moveAmount;
-			setRotation(right);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
 			m_velocity.y += moveAmount;
-			setRotation(down);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
 			m_velocity.y -= moveAmount;
-			setRotation(up);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_ATTACK]))
 		{
@@ -150,25 +146,21 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 		{
 			// left key is pressed: move our character
 			m_velocity.x -= moveAmount;
-			setRotation(left);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
 			m_velocity.x += moveAmount;
-			setRotation(right);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
 			m_velocity.y += moveAmount;
-			setRotation(down);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
 			m_velocity.y -= moveAmount;
-			setRotation(up);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_ATTACK]))
 		{
