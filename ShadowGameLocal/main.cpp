@@ -51,8 +51,12 @@ int main()
 		// Update
 		p1.Update(shadowFactory);
 		p2.Update(shadowFactory);
-		p1View.setCenter(p1.getPosition());
-		p2View.setCenter(p2.getPosition());
+
+		float rate = 0.05f;
+		sf::Vector2f p1Cen = p1View.getCenter() + ((p1.getPosition() - p1View.getCenter()) * rate);
+		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate);
+		p1View.setCenter(p1Cen);
+		p2View.setCenter(p2Cen);
 
 		
 		
