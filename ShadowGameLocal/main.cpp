@@ -17,6 +17,10 @@ int main()
 	sf::View p2View(sf::FloatRect(0, 0, 600, 600));
 	p2View.setViewport(sf::FloatRect(0.5f, 0, 0.5f, 1));
 
+	sf::Clock timer;
+	// Time in seconds.
+	float deltaTime;
+
 	//Kevin
 	Player p1 = Player("Kevin", "pass", sf::Vector2f(50, 50), 1);
 	Player p2 = Player("Ronan", "pass", sf::Vector2f(50, 50), 2);
@@ -37,7 +41,7 @@ int main()
 	hud.setTexture(hudT);
 
 	
-
+	timer.restart();
 	while (window.isOpen())
 	{
 		// Input
@@ -49,12 +53,13 @@ int main()
 		}
 
 		// Update
-		p1.Update(shadowFactory);
-		p2.Update(shadowFactory);
+		deltaTime = timer.restart().asSeconds();
+		p1.Update(shadowFactory, deltaTime);
+		p2.Update(shadowFactory, deltaTime);
 
-		float rate = 0.05f;
-		sf::Vector2f p1Cen = p1View.getCenter() + ((p1.getPosition() - p1View.getCenter()) * rate);
-		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate);
+		float rate = 50;
+		sf::Vector2f p1Cen = p1View.getCenter() + ((p1.getPosition() - p1View.getCenter()) * rate * deltaTime);
+		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate * deltaTime);
 		p1View.setCenter(p1Cen);
 		p2View.setCenter(p2Cen);
 

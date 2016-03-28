@@ -29,19 +29,20 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 }
 
 //Handle all player changes per update
-void Player::Update(ShadowFactory p_shadowFactory)
+void Player::Update(ShadowFactory p_shadowFactory, float p_delta)
 {
-	InputHandler(p_shadowFactory);
+	InputHandler(p_shadowFactory, p_delta);
 
 	//float velocityCap = 1000.f;
 	//if (m_velocity != sf::Vector2f() || thor::length(m_velocity) > velocityCap)
 		//m_velocity = thor::unitVector(m_velocity) * velocityCap;
 
-	float dragAmount = 0.95;
+	float dragAmount = 4;
+	float drag = 1 / (1 + (p_delta * dragAmount));
 	if (m_velocity != sf::Vector2f())
-		m_velocity = thor::unitVector(m_velocity) * (thor::length(m_velocity) * dragAmount);
+		m_velocity = thor::unitVector(m_velocity) * (thor::length(m_velocity) * drag);
 
-	Move(m_velocity, p_shadowFactory);
+	Move(m_velocity * p_delta, p_shadowFactory);
 }
 
 //Move the player by one square in a certain direction
@@ -74,10 +75,10 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 
 
 //Handle input from both players in splitscreen version of game by using two keysets @see Attributes.h
-void Player::InputHandler(ShadowFactory p_shadowFactory)
+void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 {
-	float moveAmount = 0.1f;
-	float rotateAmount = 1.f;
+	float moveAmount = 800;
+	moveAmount *= p_delta;
 	switch (m_keySet)
 	{
 	case 1:
@@ -112,7 +113,6 @@ void Player::InputHandler(ShadowFactory p_shadowFactory)
 		{
 			// right key is pressed: move our character
 			m_velocity.x += moveAmount;
-			rotate(rotateAmount);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_DOWN]))
 		{
