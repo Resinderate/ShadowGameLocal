@@ -32,8 +32,8 @@ int main()
 	animations.push_back(a);
 
 	//Kevin
-	Player p1 = Player("Kevin", "pass", sf::Vector2f(50, 50), 1, animations);
-	Player p2 = Player("Ronan", "pass", sf::Vector2f(50, 50), 2, animations);
+	Player p1 = Player("Kevin", "pass", sf::Vector2f(25, 25), 1, animations);
+	Player p2 = Player("Ronan", "pass", sf::Vector2f(150, 25), 2, animations);
 	PlayerDatabase players = PlayerDatabase();
 	players.AddPlayer(p1);
 	players.AddPlayer(p2);
@@ -68,21 +68,15 @@ int main()
 
 		// Update
 		deltaTime = timer.restart().asSeconds();
-		p1.Update(shadowFactory, deltaTime);
-		p2.Update(shadowFactory, deltaTime);
+		p1.Update(shadowFactory, deltaTime, players.GetPlayers());
+		p2.Update(shadowFactory, deltaTime, players.GetPlayers());
 
 		float rate = 50;
 		sf::Vector2f p1Cen = p1View.getCenter() + ((p1.getPosition() - p1View.getCenter()) * rate * deltaTime);
 		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate * deltaTime);
 		p1View.setCenter(p1Cen);
 		p2View.setCenter(p2Cen);
-		//p1.Update(shadowFactory, players.GetPlayers());
-		//p2.Update(shadowFactory, players.GetPlayers());
-		//p1View.setCenter(p1.getPosition());
-		//p2View.setCenter(p2.getPosition());
 
-		
-		
 		window.clear(sf::Color::White);
 
 		// Draw P1

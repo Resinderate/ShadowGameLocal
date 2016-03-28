@@ -2,7 +2,7 @@
 
 PlayerDatabase::PlayerDatabase()
 {
-	m_players = std::vector<Player>(10);
+	m_players = std::vector<Player>();
 }
 
 bool PlayerDatabase::AddPlayer(Player p_player){

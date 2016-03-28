@@ -23,27 +23,26 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 }
 
 //Handle all player changes per update
-//void Player::Update(ShadowFactory p_shadowFactory, std::vector<Player> p_players)
-void Player::Update(ShadowFactory p_shadowFactory, float p_delta)
+void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player> p_players)
 {
 	if (!m_isDead)
 	{
-	//InputHandler(p_shadowFactory, p_players);
-	InputHandler(p_shadowFactory, p_delta);
+		//InputHandler(p_shadowFactory, p_players);
+		InputHandler(p_shadowFactory, p_delta, p_players);
 
-	//float velocityCap = 1000.f;
-	//if (m_velocity != sf::Vector2f() || thor::length(m_velocity) > velocityCap)
-		//m_velocity = thor::unitVector(m_velocity) * velocityCap;
+		//float velocityCap = 1000.f;
+		//if (m_velocity != sf::Vector2f() || thor::length(m_velocity) > velocityCap)
+			//m_velocity = thor::unitVector(m_velocity) * velocityCap;
 
-	float dragAmount = 4;
-	float drag = 1 / (1 + (p_delta * dragAmount));
-	if (m_velocity != sf::Vector2f())
-		m_velocity = thor::unitVector(m_velocity) * (thor::length(m_velocity) * drag);
+		float dragAmount = 4;
+		float drag = 1 / (1 + (p_delta * dragAmount));
+		if (m_velocity != sf::Vector2f())
+			m_velocity = thor::unitVector(m_velocity) * (thor::length(m_velocity) * drag);
 
-	Move(m_velocity * p_delta, p_shadowFactory);
+		Move(m_velocity * p_delta, p_shadowFactory);
 
-	update(sf::seconds(p_delta));
-}
+		update(sf::seconds(p_delta));
+	}
 }
 
 //Move the player by one square in a certain direction
@@ -74,36 +73,39 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 	}
 }
 
-//void Player::Attack(std::vector<Player> p_players)
-//{
-//	for (Player p : p_players)
-//	{
-//		if (p.GetUsername() != this->GetUsername())
-//		{
-//			if (thor::length(p.getPosition() - this->getPosition()) <= 20)
-//			{
-//				setColor(sf::Color::Green);
-//			}
-//		}
-//	}
-//}
-//void Player::Attack2(std::vector<Player> p_players)
-//{
-//	for (Player p : p_players)
-//	{
-//		if (p.GetUsername() != this->GetUsername())
-//		{
-//			if (thor::length(p.getPosition() - this->getPosition()) <= 20)
-//			{
-//				setColor(sf::Color::Blue);
-//			}
-//		}
-//	}
-//}
+void Player::Attack(std::vector<Player> p_players)
+{
+	for (Player p : p_players)
+	{
+		if (p.GetUsername() != this->GetUsername())
+		{
+			float len = thor::length(p.getPosition() - this->getPosition());
+			Log(GetUsername() + " -> " + p.GetUsername() + " : " + std::to_string(len));
+			if (thor::length(p.getPosition() - this->getPosition()) <= 20.f)
+			{
+				setColor(sf::Color::Green);
+			}
+		}
+	}
+}
+void Player::Attack2(std::vector<Player> p_players)
+{
+	for (Player p : p_players)
+	{
+		if (p.GetUsername() != this->GetUsername())
+		{
+			if (thor::length(p.getPosition() - this->getPosition()) <= 20)
+			{
+				Log("Kill Blue");
+				setColor(sf::Color::Blue);
+			}
+		}
+	}
+}
 
 //Handle input from both players in splitscreen version of game by using two keysets @see Attributes.h
 //void Player::InputHandler(ShadowFactory p_shadowFactory, std::vector<Player> p_players)
-void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
+void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player> p_players)
 {
 	float moveAmount = 800;
 	moveAmount *= p_delta;
@@ -138,7 +140,7 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_ATTACK]))
 		{
 			// Attack key is pressed
-			//	Attack2(p_players);
+			Attack2(p_players);
 		}
 		break;
 	case 2:
@@ -165,7 +167,7 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_ATTACK]))
 		{
 			// Attack key is pressed
-			//Attack(p_players);
+			Attack(p_players);
 		}
 		break;
 	}
