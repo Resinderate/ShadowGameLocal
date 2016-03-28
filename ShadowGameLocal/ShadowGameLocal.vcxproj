@@ -158,6 +158,7 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerDatabase.cpp" />
     <ClCompile Include="ShadowFactory.cpp" />
     <ClCompile Include="TexturedWorld.cpp" />
     <ClCompile Include="Trigonometry.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Line.hpp" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="PlayerDatabase.hpp" />
     <ClInclude Include="ResourceHolder.hpp" />
     <ClInclude Include="ShadowFactory.hpp" />
     <ClInclude Include="TexturedWorld.hpp" />
