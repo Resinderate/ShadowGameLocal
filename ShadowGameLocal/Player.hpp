@@ -14,6 +14,8 @@ public:
 	inline std::string &GetUsername() { return m_username; }
 	inline std::string &GetPassword() { return m_password; }
 	inline std::uint8_t &GetHealth() { return m_health; }
+	inline bool &GetIsDead() { return m_isDead; }
+	inline std::uint8_t SetHealth(int8_t p_val) { m_health = p_val; }
 	inline std::uint8_t &GetMaxHealth() { return m_maxHealth; }
 	void Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player>& p_players);
 	void Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory);

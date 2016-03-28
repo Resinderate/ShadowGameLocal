@@ -30,6 +30,7 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 {
 	if (!m_isDead)
 	{
+
 		//InputHandler(p_shadowFactory, p_players);
 		InputHandler(p_shadowFactory, p_delta, p_players);
 
@@ -45,11 +46,6 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 		Move(m_velocity * p_delta, p_shadowFactory);
 
 		update(sf::seconds(p_delta));
-
-		if (m_health <= 0)
-		{
-			m_isDead = true;
-		}
 	}
 }
 
@@ -85,17 +81,23 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 
 void Player::Attack(std::vector<Player> &p_players)
 {
-	for (Player p : p_players)
+	for (auto itr = p_players.begin(); itr < p_players.end(); itr++)
 	{
-		if (p.GetUsername() != this->GetUsername())
+		if (itr->GetUsername() != this->GetUsername())
 		{
-			float len = thor::length(p.getPosition() - this->getPosition());
-			//Log(GetUsername() + " -> " + p.GetUsername() + " : " + std::to_string(len));
-			if (thor::length(p.getPosition() - this->getPosition()) <= 20.f)
+			Player& p = *itr;
+			float len = thor::length(itr->getPosition() - this->getPosition());
+			Log(GetUsername() + " -> " + itr->GetUsername() + " : " + std::to_string(len));
+			if (thor::length(itr->getPosition() - this->getPosition()) <= 20.f && itr->GetHealth() > 0)
 			{
-				p.GetHealth()--; 
-				Log(p.GetUsername() + " -> Health" + " : " + std::to_string(p.GetHealth()));
-
+				itr->GetHealth()--;
+				Log(itr->GetUsername() + " -> Health" + " : " + std::to_string(itr->GetHealth()));
+				if (itr->GetHealth() <= 0)
+				{
+					Log(itr->GetUsername() + std::to_string(itr->GetIsDead()));
+					itr->GetIsDead() = true;
+					Log(itr->GetUsername() + std::to_string(itr->GetIsDead()));
+				}
 			}
 		}
 	}
