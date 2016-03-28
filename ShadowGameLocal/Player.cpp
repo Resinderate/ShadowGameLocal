@@ -50,7 +50,7 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 //Handle input from both players in splitscreen version of game by using two keysets @see Attributes.h
 void Player::InputHandler(ShadowFactory p_shadowFactory)
 {
-	int moveAmount = 10;
+	int moveAmount = 2;
 	switch (m_keySet)
 	{
 	case 1:
