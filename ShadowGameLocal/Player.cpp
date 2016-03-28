@@ -9,21 +9,20 @@ Player::Player()
 	setScale(sf::Vector2f(0.078125, 0.078125));
 	setColor(sf::Color::Red);
 	
-	m_texture.loadFromFile("aqua-ball.png");
+	m_texture.loadFromFile("spritesheet/hitman1_hold.png");
 	setTexture(m_texture);
 	m_texture.setSmooth(true);
 	m_keySet = 1;
 }
-Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_position,
-					sf::Vector2f p_scale, uint8_t p_keySet)
+Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_position, uint8_t p_keySet)
 {
 	m_username = p_username;
 	m_password = p_password;
 	setPosition(p_position);
-	setScale(p_scale);
+	//setScale(p_scale);
 	//setColor(sf::Color::Magenta);
 
-	m_texture.loadFromFile("aqua-ball.png");
+	m_texture.loadFromFile("spritesheet/hitman1_hold.png");
 	setTexture(m_texture);
 	m_texture.setSmooth(true);
 	m_keySet = p_keySet;

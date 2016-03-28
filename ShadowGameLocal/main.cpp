@@ -18,8 +18,8 @@ int main()
 	p2View.setViewport(sf::FloatRect(0.5f, 0, 0.5f, 1));
 
 	//Kevin
-	Player p1 = Player("Kevin", "pass", sf::Vector2f(100, 100), sf::Vector2f(0.078125, 0.078125), 1);
-	Player p2 = Player("Ronan", "pass", sf::Vector2f(100, 100), sf::Vector2f(0.078125, 0.078125), 2);
+	Player p1 = Player("Kevin", "pass", sf::Vector2f(50, 50), sf::Vector2f(1, 1), 1);
+	Player p2 = Player("Ronan", "pass", sf::Vector2f(50, 50), sf::Vector2f(1, 1), 2);
 	
 	ShadowFactory shadowFactory;
 	if (!shadowFactory.load())

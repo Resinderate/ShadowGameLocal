@@ -7,7 +7,7 @@ class Player : public sf::Sprite
 {
 public:
 	Player();
-	Player(std::string p_username, std::string p_password, sf::Vector2f p_position, sf::Vector2f p_scale, uint8_t keySet);
+	Player(std::string p_username, std::string p_password, sf::Vector2f p_position, uint8_t keySet);
 	inline std::string& GetUsername() { return m_username; }
 	inline std::string& GetPassword() { return m_password; }
 	void Update(ShadowFactory p_shadowFactory);
