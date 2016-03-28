@@ -6,7 +6,7 @@ Player::Player()
 	m_username = "Default";
 	m_password = "Default";
 	setPosition(sf::Vector2f(20, 0));
-	setScale(sf::Vector2f(0.078125, 0.078125));
+	//setScale(sf::Vector2f(0.078125, 0.078125));
 	setColor(sf::Color::Red);
 	
 	m_texture.loadFromFile("spritesheet/hitman1_hold.png");
@@ -32,6 +32,16 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 void Player::Update(ShadowFactory p_shadowFactory)
 {
 	InputHandler(p_shadowFactory);
+
+	//float velocityCap = 1000.f;
+	//if (m_velocity != sf::Vector2f() || thor::length(m_velocity) > velocityCap)
+		//m_velocity = thor::unitVector(m_velocity) * velocityCap;
+
+	float dragAmount = 0.95;
+	if (m_velocity != sf::Vector2f())
+		m_velocity = thor::unitVector(m_velocity) * (thor::length(m_velocity) * dragAmount);
+
+	Move(m_velocity, p_shadowFactory);
 }
 
 //Move the player by one square in a certain direction
@@ -41,59 +51,78 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 	player.left += p_direction.x;
 	player.top += p_direction.y;
 
+	// Could do some more complicated movement here.
 	if (!p_shadowFactory.doesCollideWithWorld(player))
+	{
 		move(p_direction);
+		return;
+	}
+	player.top -= p_direction.y;
+	if (!p_shadowFactory.doesCollideWithWorld(player))
+	{
+		move(sf::Vector2f(p_direction.x, 0));
+		return;
+	}
+	player.top += p_direction.y;
+	player.left -= p_direction.x;
+	if (!p_shadowFactory.doesCollideWithWorld(player))
+	{
+		move(sf::Vector2f(0, p_direction.y));
+		return;
+	}
 }
 
 
 //Handle input from both players in splitscreen version of game by using two keysets @see Attributes.h
 void Player::InputHandler(ShadowFactory p_shadowFactory)
 {
-	int moveAmount = 2;
+	float moveAmount = 0.1f;
+	float rotateAmount = 1.f;
 	switch (m_keySet)
 	{
 	case 1:
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_LEFT]))
 		{
 			// left key is pressed: move our character
-			Move(sf::Vector2f(-moveAmount, 0), p_shadowFactory);
+			m_velocity.x -= moveAmount;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
-			Move(sf::Vector2f(moveAmount, 0), p_shadowFactory);
+			m_velocity.x += moveAmount;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
-			Move(sf::Vector2f(0, moveAmount), p_shadowFactory);
+			m_velocity.y += moveAmount;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
-			Move(sf::Vector2f(0, -moveAmount), p_shadowFactory);
+			m_velocity.y -= moveAmount;
 		}
 		break;
 	case 2:
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_LEFT]))
 		{
 			// left key is pressed: move our character
-			Move(sf::Vector2f(-moveAmount, 0), p_shadowFactory);
+			m_velocity.x -= moveAmount;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
-			Move(sf::Vector2f(moveAmount, 0), p_shadowFactory);
+			m_velocity.x += moveAmount;
+			rotate(rotateAmount);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
-			Move(sf::Vector2f(0, moveAmount), p_shadowFactory);
+			m_velocity.y += moveAmount;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
-			Move(sf::Vector2f(0, -moveAmount), p_shadowFactory);
+			m_velocity.y -= moveAmount;
 		}
 		break;
 	}

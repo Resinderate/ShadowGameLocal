@@ -18,6 +18,8 @@ private:
 	std::string m_password;
 	sf::Texture m_texture;
 	uint8_t m_keySet;
+
+	sf::Vector2f m_velocity;
 };
 
 #endif
