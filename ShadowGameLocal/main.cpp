@@ -65,15 +65,15 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-
+		
 		// Update
 		deltaTime = timer.restart().asSeconds();
-		p1.Update(shadowFactory, deltaTime, players.GetPlayers());
-		p2.Update(shadowFactory, deltaTime, players.GetPlayers());
+		players.GetPlayers()[0].Update(shadowFactory, deltaTime, players.GetPlayers());
+		players.GetPlayers()[1].Update(shadowFactory, deltaTime, players.GetPlayers());
 
 		float rate = 50;
-		sf::Vector2f p1Cen = p1View.getCenter() + ((p1.getPosition() - p1View.getCenter()) * rate * deltaTime);
-		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate * deltaTime);
+		sf::Vector2f p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate * deltaTime);
+		sf::Vector2f p2Cen = p2View.getCenter() + ((players.GetPlayers()[1].getPosition() - p2View.getCenter()) * rate * deltaTime);
 		p1View.setCenter(p1Cen);
 		p2View.setCenter(p2Cen);
 
@@ -86,11 +86,13 @@ int main()
 		for (auto spr : texturedWorld.getTexturedWorld())
 			window.draw(spr);
 
-		window.draw(p1);
-		window.draw(p2);
+		if (!players.GetPlayers()[0].GetIsDead())
+			window.draw(players.GetPlayers()[0]);
+		if(!players.GetPlayers()[1].GetIsDead())
+			window.draw(players.GetPlayers()[1]);
 
 		// Draw shadows
-		sf::Vector2f castingPos = sf::Vector2f(p1.getPosition().x + p1.getGlobalBounds().width / 2, p1.getPosition().y + p1.getGlobalBounds().height / 2);
+		sf::Vector2f castingPos = sf::Vector2f(players.GetPlayers()[0].getPosition().x + players.GetPlayers()[0].getGlobalBounds().width / 2, players.GetPlayers()[0].getPosition().y + players.GetPlayers()[0].getGlobalBounds().height / 2);
 		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
 			window.draw(sha);
 
@@ -101,11 +103,13 @@ int main()
 		for (auto spr : texturedWorld.getTexturedWorld())
 			window.draw(spr);
 
-		window.draw(p1);
-		window.draw(p2);
+		if (!players.GetPlayers()[0].GetIsDead())
+			window.draw(players.GetPlayers()[0]);
+		if (!players.GetPlayers()[1].GetIsDead())
+			window.draw(players.GetPlayers()[1]);
 
 		// Draw shadows
-		castingPos = sf::Vector2f(p2.getPosition().x + p2.getGlobalBounds().width / 2, p2.getPosition().y + p2.getGlobalBounds().height / 2);
+		castingPos = sf::Vector2f(players.GetPlayers()[1].getPosition().x + players.GetPlayers()[1].getGlobalBounds().width / 2, players.GetPlayers()[1].getPosition().y + players.GetPlayers()[1].getGlobalBounds().height / 2);
 		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
 			window.draw(sha);
 		

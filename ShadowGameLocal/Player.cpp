@@ -88,7 +88,7 @@ void Player::Attack(std::vector<Player> &p_players)
 			Player& p = *itr;
 			float len = thor::length(itr->getPosition() - this->getPosition());
 			Log(GetUsername() + " -> " + itr->GetUsername() + " : " + std::to_string(len));
-			if (thor::length(itr->getPosition() - this->getPosition()) <= 20.f && itr->GetHealth() > 0)
+			if (thor::length(itr->getPosition() - this->getPosition()) <= 40.f && itr->GetHealth() > 0)
 			{
 				itr->GetHealth()--;
 				Log(itr->GetUsername() + " -> Health" + " : " + std::to_string(itr->GetHealth()));
