@@ -9,18 +9,19 @@
 class Player : public AnimatedSprite
 {
 public:
-	//void Update(ShadowFactory p_shadowFactory, std::vector<Player> p_players);
-	//void Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory);
-	//void InputHandler(ShadowFactory p_shadowFactory, std::vector<Player> p_players);
-	//void Attack(std::vector<Player> p_players);
-	//void Attack2(std::vector<Player> p_players);
-
+	Player();
 	Player(std::string p_username, std::string p_password, sf::Vector2f p_position, uint8_t keySet, std::vector<Animation> p_animations);
 	inline std::string& GetUsername() { return m_username; }
 	inline std::string& GetPassword() { return m_password; }
 	void Update(ShadowFactory p_shadowFactory, float p_delta);
 	void Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory);
 	void InputHandler(ShadowFactory p_shadowFactory, float p_delta);
+
+	//void Update(ShadowFactory p_shadowFactory, std::vector<Player> p_players);
+	//void Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory);
+	//void InputHandler(ShadowFactory p_shadowFactory, std::vector<Player> p_players);
+	//void Attack(std::vector<Player> p_players);
+	//void Attack2(std::vector<Player> p_players);
 private:		
 	std::string m_username;
 	std::string m_password;

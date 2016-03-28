@@ -2,7 +2,11 @@
 #include "Attributes.hpp"
 #include "VectorAlgebra2D.hpp"
 //Kevin
-	
+
+Player::Player()
+{
+}
+
 Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_position, uint8_t p_keySet, std::vector<Animation> p_animations)
 {
 	m_username = p_username;
@@ -16,8 +20,6 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 	setFrameTime(sf::seconds(0.4));
 
 	play(m_animations[0]);
-	sf::Vector2f s = p_animations[0].getSpriteSheet.getSize();
-	setOrigin(s.x / 2, s.y / 2);
 }
 
 //Handle all player changes per update
