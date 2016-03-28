@@ -71,9 +71,9 @@ int main()
 		p1.Update(shadowFactory, deltaTime);
 		p2.Update(shadowFactory, deltaTime);
 
-		float rate = 0.05f;
-		sf::Vector2f p1Cen = p1View.getCenter() + ((p1.getPosition() - p1View.getCenter()) * rate);
-		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate);
+		float rate = 50;
+		sf::Vector2f p1Cen = p1View.getCenter() + ((p1.getPosition() - p1View.getCenter()) * rate * deltaTime);
+		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate * deltaTime);
 		p1View.setCenter(p1Cen);
 		p2View.setCenter(p2Cen);
 		//p1.Update(shadowFactory, players.GetPlayers());
