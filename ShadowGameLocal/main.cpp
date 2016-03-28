@@ -2,6 +2,7 @@
 #include "VectorAlgebra2D.hpp"
 #include "ShadowFactory.hpp"
 #include "Player.hpp"
+#include "PlayerDatabase.hpp"
 #include "Attributes.hpp"
 #include "TexturedWorld.hpp"
 #include <iostream>
@@ -33,6 +34,10 @@ int main()
 	//Kevin
 	Player p1 = Player("Kevin", "pass", sf::Vector2f(50, 50), 1, animations);
 	Player p2 = Player("Ronan", "pass", sf::Vector2f(50, 50), 2, animations);
+	PlayerDatabase players = PlayerDatabase();
+	players.AddPlayer(p1);
+	players.AddPlayer(p2);
+	
 	
 	ShadowFactory shadowFactory;
 	if (!shadowFactory.load())
@@ -71,6 +76,10 @@ int main()
 		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate * deltaTime);
 		p1View.setCenter(p1Cen);
 		p2View.setCenter(p2Cen);
+		//p1.Update(shadowFactory, players.GetPlayers());
+		//p2.Update(shadowFactory, players.GetPlayers());
+		//p1View.setCenter(p1.getPosition());
+		//p2View.setCenter(p2.getPosition());
 
 		
 		

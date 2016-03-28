@@ -8,8 +8,14 @@ const uint8_t KEY_COMMAND_UP = 0;
 const uint8_t KEY_COMMAND_DOWN = 1;
 const uint8_t KEY_COMMAND_LEFT = 2;
 const uint8_t KEY_COMMAND_RIGHT = 3;
-const sf::Keyboard::Key KeySet1[4] = { sf::Keyboard::Up, sf::Keyboard::Down, sf::Keyboard::Left, sf::Keyboard::Right };
-const sf::Keyboard::Key KeySet2[4] = { sf::Keyboard::W, sf::Keyboard::S, sf::Keyboard::A, sf::Keyboard::D };
+const uint8_t KEY_COMMAND_ATTACK = 4;
+const uint8_t NO_OF_KEYS = 5;
+const uint8_t MAXIMUM_PLAYERS = 10;
+
+const sf::Keyboard::Key KeySet1[NO_OF_KEYS] = { sf::Keyboard::Up, sf::Keyboard::Down, sf::Keyboard::Left, sf::Keyboard::Right, sf::Keyboard::RControl };
+const sf::Keyboard::Key KeySet2[NO_OF_KEYS] = { sf::Keyboard::W, sf::Keyboard::S, sf::Keyboard::A, sf::Keyboard::D, sf::Keyboard::Space };
+
+
 const std::unordered_map<std::string, sf::IntRect> TEXTURE_MAPPINGS = { 
 	{ "grass1", sf::IntRect(198, 0, 64, 64) },
 	{ "grass2", sf::IntRect(396, 0, 64, 64) },
