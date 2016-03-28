@@ -22,22 +22,12 @@ int main()
 	// Time in seconds.
 	float deltaTime;
 
-	sf::Texture t;
-	t.loadFromFile("spritesheet/hitman_walk.png");
-	Animation a;
-	a.setSpriteSheet(t);
-	a.addFrame(sf::IntRect(0, 0, 35, 43));
-	a.addFrame(sf::IntRect(35, 0, 35, 43));
-	std::vector<Animation> animations;
-	animations.push_back(a);
-
 	//Kevin
-	Player p1 = Player("Kevin", "pass", sf::Vector2f(50, 50), 1, animations);
-	Player p2 = Player("Ronan", "pass", sf::Vector2f(50, 50), 2, animations);
+	Player p1 = Player("Kevin", "pass", sf::Vector2f(80, 100), sf::Vector2f(0.078125, 0.078125), 1);
+	Player p2 = Player("Ronan", "pass", sf::Vector2f(80, 80), sf::Vector2f(0.078125, 0.078125), 2);
 	PlayerDatabase players = PlayerDatabase();
 	players.AddPlayer(p1);
 	players.AddPlayer(p2);
-	
 	
 	ShadowFactory shadowFactory;
 	if (!shadowFactory.load())
@@ -68,12 +58,12 @@ int main()
 
 		// Update
 		deltaTime = timer.restart().asSeconds();
-		p1.Update(shadowFactory, deltaTime);
-		p2.Update(shadowFactory, deltaTime);
+		p1.Update(shadowFactory, deltaTime, players.GetPlayers());
+		p2.Update(shadowFactory, deltaTime, players.GetPlayers());
 
-		float rate = 0.05f;
-		sf::Vector2f p1Cen = p1View.getCenter() + ((p1.getPosition() - p1View.getCenter()) * rate);
-		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate);
+		float rate = 50;
+		sf::Vector2f p1Cen = p1View.getCenter() + ((p1.getPosition() - p1View.getCenter()) * rate * deltaTime);
+		sf::Vector2f p2Cen = p2View.getCenter() + ((p2.getPosition() - p2View.getCenter()) * rate * deltaTime);
 		p1View.setCenter(p1Cen);
 		p2View.setCenter(p2Cen);
 		//p1.Update(shadowFactory, players.GetPlayers());
