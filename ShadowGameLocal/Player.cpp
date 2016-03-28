@@ -2,33 +2,24 @@
 #include "Attributes.hpp"
 #include "VectorAlgebra2D.hpp"
 //Kevin
+
 Player::Player()
 {
-	m_username = "Default";
-	m_password = "Default";
-	setPosition(sf::Vector2f(20, 0));
-	//setScale(sf::Vector2f(0.078125, 0.078125));
-	setColor(sf::Color::Red);
-	
-	m_texture.loadFromFile("spritesheet/hitman1_hold.png");
-	setTexture(m_texture);
-	m_texture.setSmooth(true);
-	m_keySet = 1;
-	m_isDead = false;
 }
-Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_position, sf::Vector2f p_scale, uint8_t p_keySet)
+
+Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_position, uint8_t p_keySet, std::vector<Animation> p_animations)
 {
 	m_username = p_username;
 	m_password = p_password;
 	setPosition(p_position);
-	//setScale(p_scale);
-	//setColor(sf::Color::Magenta);
 
-	m_texture.loadFromFile("spritesheet/hitman1_hold.png");
-	setTexture(m_texture);
-	m_texture.setSmooth(true);
+	m_animations = p_animations;
 	m_keySet = p_keySet;
 	m_isDead = false;
+	// Can set the inital pause or loops here too.
+	setFrameTime(sf::seconds(0.4));
+
+	play(m_animations[0]);
 }
 
 //Handle all player changes per update
@@ -50,6 +41,8 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta)
 		m_velocity = thor::unitVector(m_velocity) * (thor::length(m_velocity) * drag);
 
 	Move(m_velocity * p_delta, p_shadowFactory);
+
+	update(sf::seconds(p_delta));
 }
 }
 
@@ -71,7 +64,7 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 	{
 		move(sf::Vector2f(p_direction.x, 0));
 		return;
-}
+	}
 	player.top += p_direction.y;
 	player.left -= p_direction.x;
 	if (!p_shadowFactory.doesCollideWithWorld(player))
@@ -114,6 +107,11 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 {
 	float moveAmount = 800;
 	moveAmount *= p_delta;
+
+	int up = 270;
+	int down = 90;
+	int right = 0;
+	int left = 180;
 	switch (m_keySet)
 	{
 	case 1:
@@ -136,12 +134,11 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 		{
 			// up key is pressed: move our character
 			m_velocity.y -= moveAmount;
-			Move(sf::Vector2f(0, -20), p_shadowFactory);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_ATTACK]))
 		{
 			// Attack key is pressed
-		//	Attack2(p_players);
+			//	Attack2(p_players);
 		}
 		break;
 	case 2:
@@ -164,7 +161,6 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 		{
 			// up key is pressed: move our character
 			m_velocity.y -= moveAmount;
-			Move(sf::Vector2f(0, -20), p_shadowFactory);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_ATTACK]))
 		{
