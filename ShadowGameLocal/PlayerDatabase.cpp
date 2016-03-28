@@ -5,7 +5,7 @@ PlayerDatabase::PlayerDatabase()
 	m_players = std::vector<Player>();
 }
 
-bool PlayerDatabase::AddPlayer(Player p_player){
+bool PlayerDatabase::AddPlayer(Player &p_player){
 	for (Player p : m_players)
 	{
 		if (p.GetUsername() == p_player.GetUsername())

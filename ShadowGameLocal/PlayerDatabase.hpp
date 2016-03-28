@@ -9,8 +9,8 @@ class PlayerDatabase
 {
 public:
 	PlayerDatabase();
-	bool AddPlayer(Player p_player);
-	inline std::vector<Player>& GetPlayers() { return m_players; }
+	bool AddPlayer(Player &p_player);
+	inline std::vector<Player> &GetPlayers() { return m_players; }
 private:
 	std::vector<Player> m_players;
 };
