@@ -14,6 +14,8 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 	setFrameTime(sf::seconds(0.4));
 
 	play(m_animations[0]);
+	sf::Vector2f s = p_animations[0].getSpriteSheet.getSize();
+	setOrigin(s.x / 2, s.y / 2);
 }
 
 //Handle all player changes per update
@@ -69,6 +71,11 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 {
 	float moveAmount = 800;
 	moveAmount *= p_delta;
+
+	int up = 270;
+	int down = 90;
+	int right = 0;
+	int left = 180;
 	switch (m_keySet)
 	{
 	case 1:
@@ -76,21 +83,25 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 		{
 			// left key is pressed: move our character
 			m_velocity.x -= moveAmount;
+			setRotation(left);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
 			m_velocity.x += moveAmount;
+			setRotation(right);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
 			m_velocity.y += moveAmount;
+			setRotation(down);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
 			m_velocity.y -= moveAmount;
+			setRotation(up);
 		}
 		break;
 	case 2:
@@ -98,21 +109,25 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta)
 		{
 			// left key is pressed: move our character
 			m_velocity.x -= moveAmount;
+			setRotation(left);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
 			m_velocity.x += moveAmount;
+			setRotation(right);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
 			m_velocity.y += moveAmount;
+			setRotation(down);
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
 			m_velocity.y -= moveAmount;
+			setRotation(up);
 		}
 		break;
 	}
