@@ -6,6 +6,7 @@
 #include "Attributes.hpp"
 #include "TexturedWorld.hpp"
 #include <iostream>
+#include "SFML/Audio.hpp"
 
 int main()
 {
@@ -31,14 +32,23 @@ int main()
 	std::vector<Animation> animations;
 	animations.push_back(a);
 
+	
+
 	//Kevin
 	Player p1 = Player("Kevin", "pass", sf::Vector2f(125, 25), 1, animations);
 	Player p2 = Player("Ronan", "pass", sf::Vector2f(150, 25), 2, animations);
 	PlayerDatabase players = PlayerDatabase();
 	players.AddPlayer(p1);
 	players.AddPlayer(p2);
-	
-	
+
+	//background music
+	sf::Music music;
+	if (!music.openFromFile("audio/background.wav"))
+		return -1; // error
+	music.setLoop(true);
+	music.setVolume(50);
+	music.play();
+		
 	ShadowFactory shadowFactory;
 	if (!shadowFactory.load())
 		return -1;

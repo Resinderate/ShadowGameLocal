@@ -16,13 +16,23 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 	m_animations = p_animations;
 	m_keySet = p_keySet;
 	m_isDead = false;
-	m_maxHealth = 10;
+	m_maxHealth = 250;
 	m_health = m_maxHealth;
 
 	// Can set the inital pause or loops here too.
 	setFrameTime(sf::seconds(0.4));
 
 	play(m_animations[0]);
+
+	hitB.loadFromFile("audio/hit.wav");
+	hit.setBuffer(hitB);
+	hit.setVolume(30);
+
+	footB.loadFromFile("audio/foot.wav");
+	foot.setBuffer(footB);
+	foot.setVolume(30);
+	foot.setLoop(true);
+
 }
 
 //Handle all player changes per update
@@ -58,6 +68,12 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 	player.left += p_direction.x;
 	player.top += p_direction.y;
 
+	//if (isWalking)
+	//{
+	//	foot.play();
+	//	isWalking = false;
+	//}
+
 	// Could do some more complicated movement here.
 	if (!p_shadowFactory.doesCollideWithWorld(player))
 	{
@@ -92,6 +108,9 @@ void Player::Attack(std::vector<Player> &p_players)
 			{
 				itr->GetHealth()--;
 				Log(itr->GetUsername() + " -> Health" + " : " + std::to_string(itr->GetHealth()));
+			
+				hit.play();
+
 				if (itr->GetHealth() <= 0)
 				{
 					Log(itr->GetUsername() + std::to_string(itr->GetIsDead()));

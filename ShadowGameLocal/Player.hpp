@@ -5,6 +5,7 @@
 #include <vector>
 #include "AnimatedSprite.hpp"
 #include "Animation.hpp"
+#include "SFML\Audio.hpp"
 //Kevin
 class Player : public AnimatedSprite
 {
@@ -29,6 +30,11 @@ private:
 	uint8_t m_health;
 	uint8_t m_maxHealth;
 	bool m_isDead;
+
+	sf::SoundBuffer hitB;
+	sf::Sound hit;
+	sf::SoundBuffer footB;
+	sf::Sound foot;
 
 	sf::Vector2f m_velocity;
 	std::vector<Animation> m_animations;
