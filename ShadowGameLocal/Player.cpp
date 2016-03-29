@@ -58,7 +58,7 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 
 		Move(m_velocity * p_delta, p_shadowFactory);
 
-		//UpdateAnimations();
+		UpdateAnimations();
 
 		update(sf::seconds(p_delta));	
 	}
@@ -142,22 +142,16 @@ void Player::UpdateAnimations()
 {
 	if (m_velocity != sf::Vector2f())
 	{
-		int rot = -1;
-		int E = 0;
-		int SE = 45;
-		int S = 90;
-		int SW = 135;
-		int W = 180;
-		int NW = 225;
-		int N = 270;
-		int NE = 315;
-
 		// See what the velocity and change the dir of character.
-		sf::Vector2f dir = thor::unitVector(m_velocity);
+		float speed = thor::length(m_velocity);
 
-		// Update the animations if moving or stopped.
-
-		// Might be able to do other animations here.
+		if (speed < 7)
+			play(m_animations[1]);
+		else
+		{
+			play(m_animations[0]);
+			setFrameTime(sf::seconds(1 / (0.1f * (speed / 6))));
+		}
 	}
 }
 

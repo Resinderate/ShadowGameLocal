@@ -37,8 +37,9 @@ sf::Clock timer;
 // Time in seconds.
 float deltaTime;
 
-sf::Texture t;
-Animation a;
+sf::Texture hitT;
+Animation ani1;
+Animation ani2;
 std::vector<Animation> animations;
 
 //Methods
@@ -177,11 +178,16 @@ void LoadViewports()
 }
 void LoadAnimation()
 {
-	t.loadFromFile("spritesheet/hitman_walk.png");
-	a.setSpriteSheet(t);
-	a.addFrame(sf::IntRect(0, 0, 35, 43));
-	a.addFrame(sf::IntRect(35, 0, 35, 43));
-	animations.push_back(a);
+	hitT.loadFromFile("spritesheet/hitman_walk.png");
+	ani1.setSpriteSheet(hitT);
+	ani1.addFrame(sf::IntRect(0, 0, 35, 43));
+	ani1.addFrame(sf::IntRect(35, 0, 35, 43));
+
+	ani2.setSpriteSheet(hitT);
+	ani2.addFrame(sf::IntRect(70, 0, 35, 43));
+
+	animations.push_back(ani1);
+	animations.push_back(ani2);
 }
 void LoadWorld()
 {
