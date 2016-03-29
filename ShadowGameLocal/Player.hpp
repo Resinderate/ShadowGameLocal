@@ -24,6 +24,8 @@ public:
 	void InputHandler(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player>& p_players);
 
 	void Attack(std::vector<Player> &p_players);
+	sf::FloatRect GetCollisionBox();
+
 private:		
 	std::string m_username;
 	std::string m_password;
@@ -40,6 +42,8 @@ private:
 
 	sf::Vector2f m_velocity;
 	std::vector<Animation> m_animations;
+
+	void UpdateAnimations();
 };
 
 #endif

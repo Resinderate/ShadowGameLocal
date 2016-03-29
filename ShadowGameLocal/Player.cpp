@@ -34,6 +34,8 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 	foot.setVolume(30);
 	foot.setLoop(true);
 
+	setOrigin(m_animations[0].getFrame(0).width / 2, m_animations[0].getFrame(0).height / 2);
+
 }
 
 //Handle all player changes per update
@@ -56,7 +58,9 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 
 		Move(m_velocity * p_delta, p_shadowFactory);
 
-		update(sf::seconds(p_delta));
+		//UpdateAnimations();
+
+		update(sf::seconds(p_delta));	
 	}
 	else
 	{
@@ -71,7 +75,7 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 //Move the player by one square in a certain direction
 void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 {	
-	sf::FloatRect player = getGlobalBounds();
+	sf::FloatRect player = GetCollisionBox();
 	player.left += p_direction.x;
 	player.top += p_direction.y;
 
@@ -128,6 +132,35 @@ void Player::Attack(std::vector<Player> &p_players)
 	}
 }
 
+sf::FloatRect Player::GetCollisionBox()
+{
+	float size = 25;
+	return sf::FloatRect(getPosition().x - size/2, getPosition().y - size/2, size, size);
+}
+
+void Player::UpdateAnimations()
+{
+	if (m_velocity != sf::Vector2f())
+	{
+		int rot = -1;
+		int E = 0;
+		int SE = 45;
+		int S = 90;
+		int SW = 135;
+		int W = 180;
+		int NW = 225;
+		int N = 270;
+		int NE = 315;
+
+		// See what the velocity and change the dir of character.
+		sf::Vector2f dir = thor::unitVector(m_velocity);
+
+		// Update the animations if moving or stopped.
+
+		// Might be able to do other animations here.
+	}
+}
+
 //Handle input from both players in splitscreen version of game by using two keysets @see Attributes.h
 //void Player::InputHandler(ShadowFactory p_shadowFactory, std::vector<Player> p_players)
 void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player> &p_players)
@@ -135,10 +168,21 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta, std::vec
 	float moveAmount = 800;
 	moveAmount *= p_delta;
 
-	int up = 270;
-	int down = 90;
-	int right = 0;
-	int left = 180;
+	int rot = -1;
+	int E = 0;
+	int SE = 45;
+	int S = 90;
+	int SW = 135;
+	int W = 180;
+	int NW = 225;
+	int N = 270;
+	int NE = 315;
+
+	bool right = false;
+	bool left = false;
+	bool up = false;
+	bool down = false;
+
 	switch (m_keySet)
 	{
 	case 1:
@@ -146,21 +190,25 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta, std::vec
 		{
 			// left key is pressed: move our character
 			m_velocity.x -= moveAmount;
+			left = true;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
 			m_velocity.x += moveAmount;
+			right = true;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
 			m_velocity.y += moveAmount;
+			down = true;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
 			m_velocity.y -= moveAmount;
+			up = true;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet1[KEY_COMMAND_ATTACK]))
 		{
@@ -173,21 +221,25 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta, std::vec
 		{
 			// left key is pressed: move our character
 			m_velocity.x -= moveAmount;
+			left = true;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_RIGHT]))
 		{
 			// right key is pressed: move our character
 			m_velocity.x += moveAmount;
+			right = true;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_DOWN]))
 		{
 			// down key is pressed: move our character
 			m_velocity.y += moveAmount;
+			down = true;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_UP]))
 		{
 			// up key is pressed: move our character
 			m_velocity.y -= moveAmount;
+			up = true;
 		}
 		if (sf::Keyboard::isKeyPressed(KeySet2[KEY_COMMAND_ATTACK]))
 		{
@@ -196,4 +248,24 @@ void Player::InputHandler(ShadowFactory p_shadowFactory, float p_delta, std::vec
 		}
 		break;
 	}
+
+	if (up && right)
+		rot = NE;
+	else if (up && left)
+		rot = NW;
+	else if (down && right)
+		rot = SE;
+	else if (down && left)
+		rot = SW;
+	else if (up)
+		rot = N;
+	else if (down)
+		rot = S;
+	else if (right)
+		rot = E;
+	else if (left)
+		rot = W;
+
+	if (rot != -1)
+		setRotation(rot);
 }

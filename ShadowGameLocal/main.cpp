@@ -110,7 +110,7 @@ void Draw()
 		window.draw(players.GetPlayers()[1]);
 
 	// Draw shadows
-	sf::Vector2f castingPos = sf::Vector2f(players.GetPlayers()[0].getPosition().x + players.GetPlayers()[0].getGlobalBounds().width / 2, players.GetPlayers()[0].getPosition().y + players.GetPlayers()[0].getGlobalBounds().height / 2);
+	sf::Vector2f castingPos = sf::Vector2f(players.GetPlayers()[0].getPosition());
 	for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
 		window.draw(sha);
 
@@ -127,7 +127,7 @@ void Draw()
 		window.draw(players.GetPlayers()[1]);
 
 	// Draw shadows
-	castingPos = sf::Vector2f(players.GetPlayers()[1].getPosition().x + players.GetPlayers()[1].getGlobalBounds().width / 2, players.GetPlayers()[1].getPosition().y + players.GetPlayers()[1].getGlobalBounds().height / 2);
+	castingPos = sf::Vector2f(players.GetPlayers()[1].getPosition());
 	for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
 		window.draw(sha);
 
@@ -159,7 +159,7 @@ void LoadMusic()
 		return; 
 
 	music.setLoop(true);
-	music.setVolume(10);
+	music.setVolume(5);
 	music.play();
 }
 void LoadTextures()
@@ -191,8 +191,8 @@ void LoadWorld()
 void LoadPlayers()
 {
 	//Kevin
-	p1 = Player("Ronan", "pass", sf::Vector2f(125, 25), 2, animations);
-	p2 = Player("Kevin", "pass", sf::Vector2f(150, 25), 1, animations);
+	p1 = Player("Ronan", "pass", sf::Vector2f(125, 50), 2, animations);
+	p2 = Player("Kevin", "pass", sf::Vector2f(150, 50), 1, animations);
 	players = PlayerDatabase();
 	players.AddPlayer(p1);
 	players.AddPlayer(p2);
