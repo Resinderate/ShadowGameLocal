@@ -25,7 +25,7 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 	// Can set the inital pause or loops here too.
 	setFrameTime(sf::seconds(0.4));
 
-	play(m_animations[0]);
+	play(m_animations[1]);
 
 	hitB.loadFromFile("audio/hit.wav");
 	hit.setBuffer(hitB);
