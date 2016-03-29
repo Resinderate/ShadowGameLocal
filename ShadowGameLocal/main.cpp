@@ -93,6 +93,7 @@ void Update()
 	score2.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[1].GetScore()));
 	health2.setString(players.GetPlayers()[1].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[1].GetHealth()));
 }
+
 void Draw()
 {
 	window.clear(sf::Color::White);
@@ -160,7 +161,7 @@ void LoadMusic()
 
 	music.setLoop(true);
 	music.setVolume(50);
-	music.play();
+	//music.play();
 }
 void LoadTextures()
 {

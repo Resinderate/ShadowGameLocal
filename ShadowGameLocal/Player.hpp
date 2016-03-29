@@ -31,6 +31,8 @@ private:
 	uint8_t m_health;
 	uint8_t m_maxHealth;
 	uint8_t m_score;
+	float m_attackDelay;
+	float m_timeSinceLastAttack;
 	bool m_isDead;
 
 	sf::SoundBuffer hitB;
