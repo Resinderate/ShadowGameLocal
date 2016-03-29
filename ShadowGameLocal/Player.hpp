@@ -18,6 +18,7 @@ public:
 	inline bool &GetIsDead() { return m_isDead; }
 	inline std::uint8_t SetHealth(int8_t p_val) { m_health = p_val; }
 	inline std::uint8_t &GetMaxHealth() { return m_maxHealth; }
+	inline std::uint8_t &GetScore() { return m_score; }
 	void Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player>& p_players);
 	void Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory);
 	void InputHandler(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player>& p_players);
@@ -29,6 +30,7 @@ private:
 	uint8_t m_keySet;
 	uint8_t m_health;
 	uint8_t m_maxHealth;
+	uint8_t m_score;
 	bool m_isDead;
 
 	sf::SoundBuffer hitB;

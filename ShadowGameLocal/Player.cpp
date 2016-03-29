@@ -18,6 +18,7 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 	m_isDead = false;
 	m_maxHealth = 250;
 	m_health = m_maxHealth;
+	m_score = 0;
 
 	// Can set the inital pause or loops here too.
 	setFrameTime(sf::seconds(0.4));
@@ -56,6 +57,12 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 		Move(m_velocity * p_delta, p_shadowFactory);
 
 		update(sf::seconds(p_delta));
+	}
+	else
+	{
+		m_isDead = false;
+		setPosition(75, 25);
+		m_health = m_maxHealth;
 	}
 }
 
@@ -113,9 +120,8 @@ void Player::Attack(std::vector<Player> &p_players)
 
 				if (itr->GetHealth() <= 0)
 				{
-					Log(itr->GetUsername() + std::to_string(itr->GetIsDead()));
 					itr->GetIsDead() = true;
-					Log(itr->GetUsername() + std::to_string(itr->GetIsDead()));
+					m_score++;
 				}
 			}
 		}

@@ -87,10 +87,10 @@ void Update()
 	p1View.setCenter(p1Cen);
 	p2View.setCenter(p2Cen);
 
-	score.setString(players.GetPlayers()[0].GetUsername() + " Score :\t\t" + "0");
+	score.setString(players.GetPlayers()[0].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
 	health.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
 	
-	score2.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + "0");
+	score2.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[1].GetScore()));
 	health2.setString(players.GetPlayers()[1].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[1].GetHealth()));
 }
 void Draw()
