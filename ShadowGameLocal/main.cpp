@@ -90,10 +90,11 @@ void Update()
 
 	score.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[1].GetScore()));
 	health.setString(players.GetPlayers()[1].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[1].GetHealth()));
-
+	
 	score2.setString(players.GetPlayers()[0].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
 	health2.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
 }
+
 void Draw()
 {
 	window.clear(sf::Color::White);

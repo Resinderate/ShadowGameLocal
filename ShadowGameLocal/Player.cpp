@@ -16,9 +16,11 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 	m_animations = p_animations;
 	m_keySet = p_keySet;
 	m_isDead = false;
-	m_maxHealth = 250;
+	m_maxHealth = 10;
 	m_health = m_maxHealth;
 	m_score = 0;
+	m_attackDelay = 1;
+	m_timeSinceLastAttack = 0;
 
 	// Can set the inital pause or loops here too.
 	setFrameTime(sf::seconds(0.4));
@@ -27,11 +29,11 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 
 	hitB.loadFromFile("audio/hit.wav");
 	hit.setBuffer(hitB);
-	hit.setVolume(30);
+	hit.setVolume(100);
 
 	footB.loadFromFile("audio/foot.wav");
 	foot.setBuffer(footB);
-	foot.setVolume(30);
+	foot.setVolume(100);
 	foot.setLoop(true);
 
 	setOrigin(m_animations[0].getFrame(0).width / 2, m_animations[0].getFrame(0).height / 2);
@@ -68,6 +70,8 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 		setPosition(75, 25);
 		m_health = m_maxHealth;
 	}
+	m_timeSinceLastAttack += p_delta;
+	//Log(std::to_string(m_timeSinceLastAttack));
 }
 
 
@@ -114,11 +118,11 @@ void Player::Attack(std::vector<Player> &p_players)
 		{
 			Player& p = *itr;
 			float len = thor::length(itr->getPosition() - this->getPosition());
-			Log(GetUsername() + " -> " + itr->GetUsername() + " : " + std::to_string(len));
-			if (thor::length(itr->getPosition() - this->getPosition()) <= 40.f && itr->GetHealth() > 0)
+			//Log(GetUsername() + " -> " + itr->GetUsername() + " : " + std::to_string(len));
+			if (thor::length(itr->getPosition() - this->getPosition()) <= 40.f && itr->GetHealth() > 0 && m_timeSinceLastAttack >= m_attackDelay)
 			{
 				itr->GetHealth()--;
-				Log(itr->GetUsername() + " -> Health" + " : " + std::to_string(itr->GetHealth()));
+				//Log(itr->GetUsername() + " -> Health" + " : " + std::to_string(itr->GetHealth()));
 			
 				hit.play();
 
@@ -127,6 +131,7 @@ void Player::Attack(std::vector<Player> &p_players)
 					itr->GetIsDead() = true;
 					m_score++;
 				}
+				m_timeSinceLastAttack = 0;
 			}
 		}
 	}
