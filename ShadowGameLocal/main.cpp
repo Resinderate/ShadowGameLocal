@@ -87,11 +87,11 @@ void Update()
 	p1View.setCenter(p1Cen);
 	p2View.setCenter(p2Cen);
 
-	score.setString(players.GetPlayers()[0].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
-	health.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
+	score.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[1].GetScore()));
+	health.setString(players.GetPlayers()[1].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[1].GetHealth()));
 	
-	score2.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[1].GetScore()));
-	health2.setString(players.GetPlayers()[1].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[1].GetHealth()));
+	score2.setString(players.GetPlayers()[0].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
+	health2.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
 }
 
 void Draw()
@@ -160,8 +160,8 @@ void LoadMusic()
 		return; 
 
 	music.setLoop(true);
-	music.setVolume(50);
-	//music.play();
+	music.setVolume(10);
+	music.play();
 }
 void LoadTextures()
 {
@@ -192,8 +192,8 @@ void LoadWorld()
 void LoadPlayers()
 {
 	//Kevin
-	p1 = Player("Kevin", "pass", sf::Vector2f(125, 25), 1, animations);
-	p2 = Player("Ronan", "pass", sf::Vector2f(150, 25), 2, animations);
+	p1 = Player("Ronan", "pass", sf::Vector2f(125, 25), 2, animations);
+	p2 = Player("Kevin", "pass", sf::Vector2f(150, 25), 1, animations);
 	players = PlayerDatabase();
 	players.AddPlayer(p1);
 	players.AddPlayer(p2);
