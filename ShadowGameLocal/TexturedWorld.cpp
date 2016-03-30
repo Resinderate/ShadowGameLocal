@@ -11,7 +11,7 @@ bool TexturedWorld::load()
 	return true;
 }
 
-std::vector<sf::Sprite>& TexturedWorld::getTexturedWorld()i
+std::vector<sf::Sprite>& TexturedWorld::getTexturedWorld()
 {
 	return m_spriteTiles;
 }
