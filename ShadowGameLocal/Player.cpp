@@ -151,7 +151,10 @@ void Player::UpdateAnimations()
 		float speed = thor::length(m_velocity);
 
 		if (speed < 7)
+		{
+
 			play(m_animations[1]);
+		}
 		else
 		{
 			play(m_animations[0]);

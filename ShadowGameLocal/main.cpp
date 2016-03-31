@@ -85,9 +85,9 @@ void Update()
 	deltaTime = timer.restart().asSeconds();
 	players.Update(shadowFactory, deltaTime);
 
-	float rate = 50;
-	p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate * deltaTime);
-	p2Cen = p2View.getCenter() + ((players.GetPlayers()[1].getPosition() - p2View.getCenter()) * rate * deltaTime);
+	float rate = 0.1;
+	p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate);
+	p2Cen = p2View.getCenter() + ((players.GetPlayers()[1].getPosition() - p2View.getCenter()) * rate);
 	p1View.setCenter(p1Cen);
 	p2View.setCenter(p2Cen);
 
