@@ -5,6 +5,7 @@
 
 Player::Player()
 {
+
 }
 
 Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_position, uint8_t p_keySet, std::vector<Animation> p_animations)
@@ -28,12 +29,13 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 	play(m_animations[1]);
 
 	hitB.loadFromFile("audio/hit.wav");
-	hit.setBuffer(hitB);
-	hit.setVolume(100);
+	hit.setVolume(60); 
+	
+	pickupB.loadFromFile("audio/pickup.wav");
+	pickup.setVolume(60);
 
 	footB.loadFromFile("audio/foot.wav");
-	foot.setBuffer(footB);
-	foot.setVolume(100);
+	foot.setVolume(60);
 	foot.setLoop(true);
 
 	setOrigin(m_animations[0].getFrame(0).width / 2, m_animations[0].getFrame(0).height / 2);
@@ -85,6 +87,8 @@ void Player::CheckCollisions(std::vector<Item>& p_items)
 			{
 				itr->GetDestroy() = true;
 				m_health++;
+				pickup.setBuffer(pickupB);
+				pickup.play();
 			}
 		}
 	}
@@ -97,11 +101,12 @@ void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
 	player.left += p_direction.x;
 	player.top += p_direction.y;
 
-	//if (isWalking)
-	//{
-	//	foot.play();
-	//	isWalking = false;
-	//}
+	/*if (m_isWalking)
+	{
+		foot.setBuffer(footB);
+		foot.play();
+		m_isWalking = false;
+	}*/
 
 	// Could do some more complicated movement here.
 	if (!p_shadowFactory.doesCollideWithWorld(player))
@@ -137,8 +142,10 @@ void Player::Attack(std::vector<Player> &p_players)
 			{
 				itr->GetHealth()--;
 				//Log(itr->GetUsername() + " -> Health" + " : " + std::to_string(itr->GetHealth()));
-			
+				
+				hit.setBuffer(hitB);
 				hit.play();
+				Log(std::to_string(hit.getVolume()));
 
 				if (itr->GetHealth() <= 0)
 				{

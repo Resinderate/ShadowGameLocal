@@ -38,9 +38,12 @@ private:
 	float m_attackDelay;
 	float m_timeSinceLastAttack;
 	bool m_isDead;
+	bool m_isWalking;
 
 	sf::SoundBuffer hitB;
 	sf::Sound hit;
+	sf::SoundBuffer pickupB;
+	sf::Sound pickup;
 	sf::SoundBuffer footB;
 	sf::Sound foot;
 
