@@ -59,12 +59,8 @@ bool ShadowFactory::load()
 			}
 		}
 	}
-	std::string s = "Unoptimized Rects: " + std::to_string(shadowCasters.size());
-	Log(s);
 	// Turn these shadow casters into better shadowCasters.
 	optimizeShadowCasters();
-	s = "Optimized Rects: " + std::to_string(shadowCasters.size());
-	Log(s);
 
 	return true;
 }

@@ -38,9 +38,13 @@ sf::Clock timer;
 float deltaTime;
 
 sf::Texture hitT;
-Animation ani1;
-Animation ani2;
-std::vector<Animation> animations;
+sf::Texture manT;
+Animation hitAni1;
+Animation hitAni2;
+Animation manAni1;
+Animation manAni2;
+std::vector<Animation> animations1;
+std::vector<Animation> animations2;
 
 //Methods
 void Update();
@@ -179,15 +183,26 @@ void LoadViewports()
 void LoadAnimation()
 {
 	hitT.loadFromFile("spritesheet/hitman_walk.png");
-	ani1.setSpriteSheet(hitT);
-	ani1.addFrame(sf::IntRect(0, 0, 35, 43));
-	ani1.addFrame(sf::IntRect(35, 0, 35, 43));
+	hitAni1.setSpriteSheet(hitT);
+	hitAni1.addFrame(sf::IntRect(0, 0, 35, 43));
+	hitAni1.addFrame(sf::IntRect(35, 0, 35, 43));
 
-	ani2.setSpriteSheet(hitT);
-	ani2.addFrame(sf::IntRect(70, 0, 35, 43));
+	hitAni2.setSpriteSheet(hitT);
+	hitAni2.addFrame(sf::IntRect(70, 0, 35, 43));
 
-	animations.push_back(ani1);
-	animations.push_back(ani2);
+	animations1.push_back(hitAni1);
+	animations1.push_back(hitAni2);
+
+	manT.loadFromFile("spritesheet/man_walk.png");
+	manAni1.setSpriteSheet(manT);
+	manAni1.addFrame(sf::IntRect(0, 0, 35, 43));
+	manAni1.addFrame(sf::IntRect(35, 0, 35, 43));
+
+	manAni2.setSpriteSheet(manT);
+	manAni2.addFrame(sf::IntRect(70, 0, 35, 43));
+
+	animations2.push_back(manAni1);
+	animations2.push_back(manAni2);
 }
 void LoadWorld()
 {
@@ -197,8 +212,8 @@ void LoadWorld()
 void LoadPlayers()
 {
 	//Kevin
-	p1 = Player("Ronan", "pass", sf::Vector2f(125, 50), 2, animations);
-	p2 = Player("Kevin", "pass", sf::Vector2f(150, 50), 1, animations);
+	p1 = Player("Ronan", "pass", sf::Vector2f(125, 50), 2, animations1);
+	p2 = Player("Kevin", "pass", sf::Vector2f(150, 50), 1, animations2);
 	players = PlayerDatabase();
 	players.AddPlayer(p1);
 	players.AddPlayer(p2);
