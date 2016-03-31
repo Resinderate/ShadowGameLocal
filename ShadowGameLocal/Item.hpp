@@ -7,6 +7,7 @@
 class Item : public sf::Sprite
 {
 public:
+	Item(const Item& item);
 	Item(sf::Vector2f p_position, ITEMTYPE p_type);
 	inline bool &GetDestroy() { return m_destroy; }
 private:
