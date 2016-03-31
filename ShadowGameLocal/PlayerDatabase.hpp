@@ -9,6 +9,7 @@ class PlayerDatabase
 {
 public:
 	PlayerDatabase();
+	void Update(ShadowFactory p_shadowFactory, float p_delta);
 	bool AddPlayer(Player &p_player);
 	inline std::vector<Player> &GetPlayers() { return m_players; }
 private:

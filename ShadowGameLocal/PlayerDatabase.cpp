@@ -16,3 +16,11 @@ bool PlayerDatabase::AddPlayer(Player &p_player){
 	m_players.push_back(p_player);
 	return true;
 }
+
+void PlayerDatabase::Update(ShadowFactory p_shadowFactory, float p_delta)
+{
+	for (auto itr = m_players.begin(); itr < m_players.end(); itr++)
+	{
+		itr->Update(p_shadowFactory, p_delta, m_players);
+	}
+}

@@ -45,4 +45,8 @@ const std::vector<std::pair<sf::Color, std::string>> COLOR_MAPPINGS = {
 	{ sf::Color(156, 192, 194, 255), "stone1" }
 };
 
+enum class ItemType
+{
+	HEALTHPICKUP
+};
 #endif

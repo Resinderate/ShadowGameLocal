@@ -79,8 +79,7 @@ int main()
 void Update()
 {
 	deltaTime = timer.restart().asSeconds();
-	players.GetPlayers()[0].Update(shadowFactory, deltaTime, players.GetPlayers());
-	players.GetPlayers()[1].Update(shadowFactory, deltaTime, players.GetPlayers());
+	players.Update(shadowFactory, deltaTime);
 
 	float rate = 50;
 	p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate * deltaTime);
