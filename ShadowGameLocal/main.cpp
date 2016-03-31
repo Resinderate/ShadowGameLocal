@@ -7,6 +7,7 @@
 #include "TexturedWorld.hpp"
 #include <iostream>
 #include "SFML/Audio.hpp"
+#include "ItemDatabase.hpp"
 
 //Music
 sf::Music music;
@@ -23,6 +24,8 @@ sf::Text health2;
 PlayerDatabase players;
 Player p1;
 Player p2;
+
+ItemDatabase items;
 
 ShadowFactory shadowFactory;
 TexturedWorld texturedWorld;
@@ -83,7 +86,8 @@ int main()
 void Update()
 {
 	deltaTime = timer.restart().asSeconds();
-	players.Update(shadowFactory, deltaTime);
+	players.Update(shadowFactory, deltaTime, items.GetItems());
+	items.Update(shadowFactory, deltaTime);
 
 	float rate = 0.1;
 	p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate);
@@ -114,6 +118,12 @@ void Draw()
 	if (!players.GetPlayers()[1].GetIsDead())
 		window.draw(players.GetPlayers()[1]);
 
+	//Draw Items
+	for (auto itm : items.GetItems())
+	{
+		window.draw(itm);
+	}
+
 	// Draw shadows
 	sf::Vector2f castingPos = sf::Vector2f(players.GetPlayers()[0].getPosition());
 	for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
@@ -130,6 +140,12 @@ void Draw()
 		window.draw(players.GetPlayers()[0]);
 	if (!players.GetPlayers()[1].GetIsDead())
 		window.draw(players.GetPlayers()[1]);
+	
+	//Draw Items
+	for (auto itm : items.GetItems())
+	{
+		window.draw(itm);
+	}
 
 	// Draw shadows
 	castingPos = sf::Vector2f(players.GetPlayers()[1].getPosition());
@@ -208,6 +224,7 @@ void LoadWorld()
 {
 	if (!shadowFactory.load())
 		return;
+	items = ItemDatabase();
 }
 void LoadPlayers()
 {

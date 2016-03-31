@@ -5,6 +5,7 @@
 #include <vector>
 #include "AnimatedSprite.hpp"
 #include "Animation.hpp"
+#include "Item.hpp"
 #include "SFML\Audio.hpp"
 //Kevin
 class Player : public AnimatedSprite
@@ -19,8 +20,9 @@ public:
 	inline std::uint8_t SetHealth(int8_t p_val) { m_health = p_val; }
 	inline std::uint8_t &GetMaxHealth() { return m_maxHealth; }
 	inline std::uint8_t &GetScore() { return m_score; }
-	void Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player>& p_players);
+	void Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player>& p_players, std::vector<Item>& p_items);
 	void Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory);
+	void CheckCollisions(std::vector<Item>& p_items);
 	void InputHandler(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player>& p_players);
 
 	void Attack(std::vector<Player> &p_players);

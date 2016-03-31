@@ -41,7 +41,7 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 }
 
 //Handle all player changes per update
-void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player> &p_players)
+void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Player> &p_players, std::vector<Item>& p_items)
 {
 	if (!m_isDead)
 	{
@@ -62,6 +62,8 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 
 		UpdateAnimations();
 
+		CheckCollisions(p_items);
+
 		update(sf::seconds(p_delta));	
 	}
 	else
@@ -74,7 +76,19 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 	//Log(std::to_string(m_timeSinceLastAttack));
 }
 
-
+void Player::CheckCollisions(std::vector<Item>& p_items)
+{
+	if (!p_items.empty()) {
+		for (auto itr = p_items.begin(); itr < p_items.end(); itr++)
+		{
+			if (itr->getGlobalBounds().intersects(getGlobalBounds()))
+			{
+				itr->GetDestroy() = true;
+				m_health++;
+			}
+		}
+	}
+}
 
 //Move the player by one square in a certain direction
 void Player::Move(sf::Vector2f p_direction, ShadowFactory p_shadowFactory)
