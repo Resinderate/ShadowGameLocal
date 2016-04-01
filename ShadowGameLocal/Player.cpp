@@ -58,7 +58,12 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 		float dragAmount = 4;
 		float drag = 1 / (1 + (p_delta * dragAmount));
 		if (m_velocity != sf::Vector2f())
-			m_velocity = thor::unitVector(m_velocity) * (thor::length(m_velocity) * drag);
+		{
+			float speed = thor::length(m_velocity);
+			if (speed > 1)
+				m_velocity = thor::unitVector(m_velocity) * (speed * drag);
+		}
+			
 
 		Move(m_velocity * p_delta, p_shadowFactory);
 
@@ -166,17 +171,17 @@ sf::FloatRect Player::GetCollisionBox()
 
 void Player::UpdateAnimations()
 {
-	if (m_velocity != sf::Vector2f())
+	if (m_velocity.x != 0 && m_velocity.y != 0)
 	{
 		// See what the velocity and change the dir of character.
 		float speed = thor::length(m_velocity);
 
-		if (speed < 7)
+		if (speed < 7.0f)
 		{
 
 			play(m_animations[1]);
 		}
-		else
+		else if (speed <= 7.0f)
 		{
 			play(m_animations[0]);
 			setFrameTime(sf::seconds(1 / (0.1f * (speed / 6))));
