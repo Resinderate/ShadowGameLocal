@@ -146,7 +146,6 @@ void Player::Attack(std::vector<Player> &p_players)
 				
 				hit.setBuffer(hitB);
 				hit.play();
-				Log(std::to_string(hit.getVolume()));
 
 				if (itr->GetHealth() <= 0)
 				{
@@ -167,7 +166,6 @@ sf::FloatRect Player::GetCollisionBox()
 
 void Player::UpdateAnimations()
 {
-	Log("In ANi!");
 	if (m_velocity.x != 0 && m_velocity.y != 0)
 	{
 		// See what the velocity and change the dir of character.
