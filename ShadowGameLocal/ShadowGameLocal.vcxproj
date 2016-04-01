@@ -177,14 +177,12 @@
     <ClInclude Include="Log.h" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="PlayerDatabase.hpp" />
-    <ClInclude Include="ResourceHolder.hpp" />
     <ClInclude Include="ShadowFactory.hpp" />
     <ClInclude Include="TexturedWorld.hpp" />
     <ClInclude Include="Trigonometry.hpp" />
     <ClInclude Include="VectorAlgebra2D.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ResourceHolder.inl" />
     <None Include="VectorAlgebra2D.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
