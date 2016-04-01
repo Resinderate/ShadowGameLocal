@@ -1,4 +1,4 @@
-// log.h; the header file which defines Log(); and LogErr();
+// Copied a solution for logging from stackoverflow.
 
 #define LOGFILE	"shadow.log"     // all Log(); messages will be appended to this file
 

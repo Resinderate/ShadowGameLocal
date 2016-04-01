@@ -1,3 +1,5 @@
+// Written by: Ronan
+
 #ifndef SHADOWFACTORY_HPP
 #define SHADOWFACTORY_HPP
 

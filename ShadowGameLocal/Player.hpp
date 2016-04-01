@@ -1,3 +1,6 @@
+// Created initially: Kevin
+// Written by: Mixed
+
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 #include "SFML\Graphics.hpp"

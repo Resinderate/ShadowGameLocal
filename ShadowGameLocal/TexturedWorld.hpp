@@ -1,3 +1,5 @@
+// Written by: Ronan
+
 #ifndef TEXTUREDWORLD_HPP
 #define TEXTUREDWORLD_HPP
 

@@ -1,3 +1,5 @@
+// Written by: Ronan
+
 #ifndef LINE_HPP
 #define LINE_HPP
 

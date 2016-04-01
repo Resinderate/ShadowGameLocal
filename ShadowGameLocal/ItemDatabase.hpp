@@ -1,3 +1,5 @@
+// Written by: Kevin
+
 #ifndef ITEMDATABASE_HPP
 #define ITEMDATABASE_HPP
 

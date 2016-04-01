@@ -1,3 +1,5 @@
+// Written by: Mixed
+
 #include "SFML/Graphics.hpp"
 #include "VectorAlgebra2D.hpp"
 #include "ShadowFactory.hpp"

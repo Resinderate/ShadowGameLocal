@@ -1,3 +1,5 @@
+// Written by: Kevin
+
 #ifndef ITEM_HPP
 #define ITEM_HPP
 

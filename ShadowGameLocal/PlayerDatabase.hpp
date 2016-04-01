@@ -1,3 +1,5 @@
+// Written by: Kevin
+
 #ifndef PLAYERDATABASE_HPP
 #define PLAYERDATABASE_HPP
 

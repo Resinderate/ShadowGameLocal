@@ -1,9 +1,12 @@
+// Written by: Mixed.
+
 #ifndef ATTRIBUTES_H
 #define ATTRIBUTES_H
 #include "SFML\Window.hpp"
 #include <cstdint>
 #include <unordered_map>
 
+// Kevin - for input stuff.
 const uint8_t KEY_COMMAND_UP = 0;
 const uint8_t KEY_COMMAND_DOWN = 1;
 const uint8_t KEY_COMMAND_LEFT = 2;
@@ -17,6 +20,7 @@ const sf::Keyboard::Key KeySet1[NO_OF_KEYS] = { sf::Keyboard::Up, sf::Keyboard::
 const sf::Keyboard::Key KeySet2[NO_OF_KEYS] = { sf::Keyboard::W, sf::Keyboard::S, sf::Keyboard::A, sf::Keyboard::D, sf::Keyboard::Space };
 
 
+// Ronan for spritesheet tiles.
 const std::unordered_map<std::string, sf::IntRect> TEXTURE_MAPPINGS = { 
 	{ "grass1", sf::IntRect(198, 0, 64, 64) },
 	{ "grass2", sf::IntRect(396, 0, 64, 64) },
@@ -46,6 +50,7 @@ const std::vector<std::pair<sf::Color, std::string>> COLOR_MAPPINGS = {
 	{ sf::Color(156, 192, 194, 255), "stone1" }
 };
 
+// Kevin
 enum class ITEMTYPE
 {
 	HEALTHPICKUP
