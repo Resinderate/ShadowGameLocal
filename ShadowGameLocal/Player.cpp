@@ -71,7 +71,7 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 	else
 	{
 		m_isDead = false;
-		setPosition(75, 25);
+		setPosition(75, 50);
 		m_health = m_maxHealth;
 	}
 	m_timeSinceLastAttack += p_delta;

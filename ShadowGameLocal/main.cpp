@@ -229,8 +229,8 @@ void LoadWorld()
 void LoadPlayers()
 {
 	//Kevin
-	p1 = Player("Ronan", "pass", sf::Vector2f(125, 50), 2, animations1);
-	p2 = Player("Kevin", "pass", sf::Vector2f(150, 50), 1, animations2);
+	p1 = Player("Player 1", "pass", sf::Vector2f(125, 50), 2, animations1);
+	p2 = Player("Player 2", "pass", sf::Vector2f(150, 50), 1, animations2);
 	players = PlayerDatabase();
 	players.AddPlayer(p1);
 	players.AddPlayer(p2);
