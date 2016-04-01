@@ -51,10 +51,6 @@ void Player::Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Pl
 		//InputHandler(p_shadowFactory, p_players);
 		InputHandler(p_shadowFactory, p_delta, p_players);
 
-		//float velocityCap = 1000.f;
-		//if (m_velocity != sf::Vector2f() || thor::length(m_velocity) > velocityCap)
-			//m_velocity = thor::unitVector(m_velocity) * velocityCap;
-
 		float dragAmount = 4;
 		float drag = 1 / (1 + (p_delta * dragAmount));
 		if (m_velocity != sf::Vector2f())
