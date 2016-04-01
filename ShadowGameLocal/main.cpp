@@ -24,6 +24,11 @@ sf::Text health2;
 
 sf::Texture startTex;
 sf::Sprite startSpr;
+bool displayStart = true;
+
+sf::Texture endTex;
+sf::Sprite endSpr;
+bool displayEnd = false;
 
 //Players
 PlayerDatabase players;
@@ -66,7 +71,7 @@ void LoadWorld();
 void LoadPlayers();
 void LoadHUD();
 
-sf::RenderWindow window(sf::VideoMode(1260, 700), "Shadow Game");
+sf::RenderWindow window(sf::VideoMode(1260, 700), "Shadow");
 
 int main()
 {
@@ -80,93 +85,112 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::Return)
+					displayStart = false;
+			}
 		}
 		// Update
 		Update();
 		Draw();
+		auto pos = players.GetPlayers()[0].getPosition();
+		Log(std::to_string(pos.x) + ", " + std::to_string(pos.y));
 	}
 	return 0;
 }
 
 void Update()
 {
-	deltaTime = timer.restart().asSeconds();
-	players.Update(shadowFactory, deltaTime, items.GetItems());
-	items.Update(shadowFactory, deltaTime);
+	if (!displayStart)
+	{
+		deltaTime = timer.restart().asSeconds();
+		players.Update(shadowFactory, deltaTime, items.GetItems());
+		items.Update(shadowFactory, deltaTime);
 
-	float rate = 0.1;
-	p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate);
-	p2Cen = p2View.getCenter() + ((players.GetPlayers()[1].getPosition() - p2View.getCenter()) * rate);
-	p1View.setCenter(p1Cen);
-	p2View.setCenter(p2Cen);
+		float rate = 0.1;
+		p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate);
+		p2Cen = p2View.getCenter() + ((players.GetPlayers()[1].getPosition() - p2View.getCenter()) * rate);
+		p1View.setCenter(p1Cen);
+		p2View.setCenter(p2Cen);
 
-	score.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[1].GetScore()));
-	health.setString(players.GetPlayers()[1].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[1].GetHealth()));
-	
-	score2.setString(players.GetPlayers()[0].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
-	health2.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
+		score.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[1].GetScore()));
+		health.setString(players.GetPlayers()[1].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[1].GetHealth()));
+
+		score2.setString(players.GetPlayers()[0].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
+		health2.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
+	}
 }
 
 void Draw()
 {
 	window.clear(sf::Color::White);
 
-	// Draw P1
-	window.setView(p1View);
-
-	// Draw background
-	for (auto spr : texturedWorld.getTexturedWorld())
-		window.draw(spr);
-
-	if (!players.GetPlayers()[0].GetIsDead())
-		window.draw(players.GetPlayers()[0]);
-	if (!players.GetPlayers()[1].GetIsDead())
-		window.draw(players.GetPlayers()[1]);
-
-	//Draw Items
-	for (auto itm : items.GetItems())
+	if (displayStart)
 	{
-		window.draw(itm);
+		window.setView(window.getDefaultView());
+		window.draw(startSpr);
+		window.display();
 	}
-
-	// Draw shadows
-	sf::Vector2f castingPos = sf::Vector2f(players.GetPlayers()[0].getPosition());
-	for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
-		window.draw(sha);
-
-	// Draw P2
-	window.setView(p2View);
-
-	// Draw background
-	for (auto spr : texturedWorld.getTexturedWorld())
-		window.draw(spr);
-
-	if (!players.GetPlayers()[0].GetIsDead())
-		window.draw(players.GetPlayers()[0]);
-	if (!players.GetPlayers()[1].GetIsDead())
-		window.draw(players.GetPlayers()[1]);
-	
-	//Draw Items
-	for (auto itm : items.GetItems())
+	else
 	{
-		window.draw(itm);
+		// Draw P1
+		window.setView(p1View);
+
+		// Draw background
+		for (auto spr : texturedWorld.getTexturedWorld())
+			window.draw(spr);
+
+		if (!players.GetPlayers()[0].GetIsDead())
+			window.draw(players.GetPlayers()[0]);
+		if (!players.GetPlayers()[1].GetIsDead())
+			window.draw(players.GetPlayers()[1]);
+
+		//Draw Items
+		for (auto itm : items.GetItems())
+		{
+			window.draw(itm);
+		}
+
+		// Draw shadows
+		sf::Vector2f castingPos = sf::Vector2f(players.GetPlayers()[0].getPosition());
+		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
+			window.draw(sha);
+
+		// Draw P2
+		window.setView(p2View);
+
+		// Draw background
+		for (auto spr : texturedWorld.getTexturedWorld())
+			window.draw(spr);
+
+		if (!players.GetPlayers()[0].GetIsDead())
+			window.draw(players.GetPlayers()[0]);
+		if (!players.GetPlayers()[1].GetIsDead())
+			window.draw(players.GetPlayers()[1]);
+
+		//Draw Items
+		for (auto itm : items.GetItems())
+		{
+			window.draw(itm);
+		}
+
+		// Draw shadows
+		castingPos = sf::Vector2f(players.GetPlayers()[1].getPosition());
+		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
+			window.draw(sha);
+
+		// Draw hud
+		window.setView(window.getDefaultView());
+
+		window.draw(hud);
+		window.draw(score);
+		window.draw(health);
+		window.draw(score2);
+		window.draw(health2);
+
+		window.display();
 	}
-
-	// Draw shadows
-	castingPos = sf::Vector2f(players.GetPlayers()[1].getPosition());
-	for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
-		window.draw(sha);
-
-	// Draw hud
-	window.setView(window.getDefaultView());
-	
-	window.draw(hud);
-	window.draw(score);
-	window.draw(health);
-	window.draw(score2);
-	window.draw(health2);
-
-	window.display();
 }
 void Load()
 {
@@ -192,6 +216,12 @@ void LoadTextures()
 {
 	if (!texturedWorld.load())
 		return;
+
+	startTex.loadFromFile("spritesheet/shadow.png");
+	endTex.loadFromFile("spritesheet/shadow.png");
+
+	startSpr.setTexture(startTex);
+	endSpr.setTexture(endTex);
 }
 void LoadViewports()
 {
@@ -234,8 +264,8 @@ void LoadWorld()
 void LoadPlayers()
 {
 	//Kevin
-	p1 = Player("Player 1", "pass", sf::Vector2f(125, 50), 2, animations1);
-	p2 = Player("Player 2", "pass", sf::Vector2f(150, 50), 1, animations2);
+	p1 = Player("Player 1", "pass", sf::Vector2f(150, 50), 2, animations1);
+	p2 = Player("Player 2", "pass", sf::Vector2f(1150, 750), 1, animations2);
 	players = PlayerDatabase();
 	players.AddPlayer(p1);
 	players.AddPlayer(p2);
