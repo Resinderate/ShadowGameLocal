@@ -90,13 +90,7 @@ int main()
 			if (event.type == sf::Event::KeyPressed)
 			{
 				if (event.key.code == sf::Keyboard::Return)
-					displayStart = false;
-				else if (event.key.code == sf::Keyboard::Z)
-				{
-					displayEnd = true;
-					winner.setString("Winner: Player 1");
-				}
-					
+					displayStart = false;					
 			}
 		}
 		// Update
