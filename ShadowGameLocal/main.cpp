@@ -30,6 +30,8 @@ sf::Texture endTex;
 sf::Sprite endSpr;
 bool displayEnd = false;
 
+sf::Text winner;
+
 //Players
 PlayerDatabase players;
 Player p1;
@@ -89,20 +91,24 @@ int main()
 			{
 				if (event.key.code == sf::Keyboard::Return)
 					displayStart = false;
+				else if (event.key.code == sf::Keyboard::Z)
+				{
+					displayEnd = true;
+					winner.setString("Winner: Player 1");
+				}
+					
 			}
 		}
 		// Update
 		Update();
 		Draw();
-		auto pos = players.GetPlayers()[0].getPosition();
-		Log(std::to_string(pos.x) + ", " + std::to_string(pos.y));
 	}
 	return 0;
 }
 
 void Update()
 {
-	if (!displayStart)
+	if (!displayStart && !displayEnd)
 	{
 		deltaTime = timer.restart().asSeconds();
 		players.Update(shadowFactory, deltaTime, items.GetItems());
@@ -119,6 +125,16 @@ void Update()
 
 		score2.setString(players.GetPlayers()[0].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
 		health2.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
+
+		// Check the end game.
+		for (auto &p : players.GetPlayers())
+		{
+			if (p.GetScore() >= 3)
+			{
+				winner.setString("Winner: " + p.GetUsername());
+				displayEnd = true;
+			}
+		}
 	}
 }
 
@@ -130,6 +146,13 @@ void Draw()
 	{
 		window.setView(window.getDefaultView());
 		window.draw(startSpr);
+		window.display();
+	}
+	else if (displayEnd)
+	{
+		window.setView(window.getDefaultView());
+		window.draw(endSpr);
+		window.draw(winner);
 		window.display();
 	}
 	else
@@ -218,7 +241,7 @@ void LoadTextures()
 		return;
 
 	startTex.loadFromFile("spritesheet/shadow.png");
-	endTex.loadFromFile("spritesheet/shadow.png");
+	endTex.loadFromFile("spritesheet/over.png");
 
 	startSpr.setTexture(startTex);
 	endSpr.setTexture(endTex);
@@ -297,4 +320,8 @@ void LoadHUD()
 	health2.setColor(sf::Color::Black);
 	health2.setCharacterSize(20);
 	health2.setPosition(sf::Vector2f(100, 30));
+
+	winner.setFont(font);
+	winner.setColor(sf::Color::White);
+	winner.setPosition(830, 450);
 }

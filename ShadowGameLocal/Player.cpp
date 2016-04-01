@@ -167,6 +167,7 @@ sf::FloatRect Player::GetCollisionBox()
 
 void Player::UpdateAnimations()
 {
+	Log("In ANi!");
 	if (m_velocity.x != 0 && m_velocity.y != 0)
 	{
 		// See what the velocity and change the dir of character.
@@ -177,7 +178,7 @@ void Player::UpdateAnimations()
 
 			play(m_animations[1]);
 		}
-		else if (speed <= 7.0f)
+		else if (speed >= 7.0f)
 		{
 			play(m_animations[0]);
 			setFrameTime(sf::seconds(1 / (0.1f * (speed / 6))));
