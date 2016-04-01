@@ -22,6 +22,9 @@ sf::Text health;
 sf::Text score2;
 sf::Text health2;
 
+sf::Texture startTex;
+sf::Sprite startSpr;
+
 //Players
 PlayerDatabase players;
 Player p1;
@@ -63,7 +66,7 @@ void LoadWorld();
 void LoadPlayers();
 void LoadHUD();
 
-sf::RenderWindow window(sf::VideoMode(1260, 700), "SFML works!");
+sf::RenderWindow window(sf::VideoMode(1260, 700), "Shadow Game");
 
 int main()
 {
