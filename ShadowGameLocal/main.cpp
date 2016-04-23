@@ -44,9 +44,7 @@ TexturedWorld texturedWorld;
 
 //View
 sf::Vector2f p1Cen;
-sf::Vector2f p2Cen;
-sf::View p1View(sf::FloatRect(0, 0, 600, 600));
-sf::View p2View(sf::FloatRect(0, 0, 600, 600));
+sf::View p1View(sf::FloatRect(0, 0, 800, 600));
 
 sf::Clock timer;
 // Time in seconds.
@@ -73,7 +71,7 @@ void LoadWorld();
 void LoadPlayers();
 void LoadHUD();
 
-sf::RenderWindow window(sf::VideoMode(1260, 700), "Shadow");
+sf::RenderWindow window(sf::VideoMode(840, 700), "Shadow");
 
 int main()
 {
@@ -110,9 +108,7 @@ void Update()
 
 		float rate = 0.1;
 		p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate);
-		p2Cen = p2View.getCenter() + ((players.GetPlayers()[1].getPosition() - p2View.getCenter()) * rate);
 		p1View.setCenter(p1Cen);
-		p2View.setCenter(p2Cen);
 
 		score.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[1].GetScore()));
 		health.setString(players.GetPlayers()[1].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[1].GetHealth()));
@@ -174,28 +170,6 @@ void Draw()
 		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
 			window.draw(sha);
 
-		// Draw P2
-		window.setView(p2View);
-
-		// Draw background
-		for (auto spr : texturedWorld.getTexturedWorld())
-			window.draw(spr);
-
-		if (!players.GetPlayers()[0].GetIsDead())
-			window.draw(players.GetPlayers()[0]);
-		if (!players.GetPlayers()[1].GetIsDead())
-			window.draw(players.GetPlayers()[1]);
-
-		//Draw Items
-		for (auto itm : items.GetItems())
-		{
-			window.draw(itm);
-		}
-
-		// Draw shadows
-		castingPos = sf::Vector2f(players.GetPlayers()[1].getPosition());
-		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
-			window.draw(sha);
 
 		// Draw hud
 		window.setView(window.getDefaultView());
@@ -243,10 +217,8 @@ void LoadTextures()
 void LoadViewports()
 {
 	// P1 view.
-	p1View.setViewport(sf::FloatRect(0, 0, 0.5f, 1));
+	p1View.setViewport(sf::FloatRect(0, 0, 1, 1));
 
-	// P2 view.
-	p2View.setViewport(sf::FloatRect(0.5f, 0, 0.5f, 1));
 }
 void LoadAnimation()
 {
