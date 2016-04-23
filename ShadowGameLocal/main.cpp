@@ -19,8 +19,6 @@ sf::Sprite hud;
 sf::Texture hudT;
 sf::Text score;
 sf::Text health;
-sf::Text score2;
-sf::Text health2;
 
 sf::Texture startTex;
 sf::Sprite startSpr;
@@ -35,8 +33,6 @@ sf::Text winner;
 //Players
 PlayerDatabase players;
 Player p1;
-Player p2;
-
 ItemDatabase items;
 
 ShadowFactory shadowFactory;
@@ -110,11 +106,8 @@ void Update()
 		p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate);
 		p1View.setCenter(p1Cen);
 
-		score.setString(players.GetPlayers()[1].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[1].GetScore()));
-		health.setString(players.GetPlayers()[1].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[1].GetHealth()));
-
-		score2.setString(players.GetPlayers()[0].GetUsername() + " Score :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
-		health2.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
+		score.setString(players.GetPlayers()[0].GetUsername() + " Lives :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
+		health.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
 
 		// Check the end game.
 		for (auto &p : players.GetPlayers())
@@ -156,8 +149,6 @@ void Draw()
 
 		if (!players.GetPlayers()[0].GetIsDead())
 			window.draw(players.GetPlayers()[0]);
-		if (!players.GetPlayers()[1].GetIsDead())
-			window.draw(players.GetPlayers()[1]);
 
 		//Draw Items
 		for (auto itm : items.GetItems())
@@ -177,8 +168,6 @@ void Draw()
 		window.draw(hud);
 		window.draw(score);
 		window.draw(health);
-		window.draw(score2);
-		window.draw(health2);
 
 		window.display();
 	}
@@ -254,10 +243,8 @@ void LoadPlayers()
 {
 	//Kevin
 	p1 = Player("Player 1", "pass", sf::Vector2f(150, 50), 2, animations1);
-	p2 = Player("Player 2", "pass", sf::Vector2f(1150, 750), 1, animations2);
 	players = PlayerDatabase();
 	players.AddPlayer(p1);
-	players.AddPlayer(p2);
 }
 
 void LoadHUD()
@@ -270,24 +257,14 @@ void LoadHUD()
 	score.setFont(font);
 	score.setColor(sf::Color::Black);
 	score.setCharacterSize(20);
-	score.setPosition(sf::Vector2f(950, 10));
+	score.setPosition(sf::Vector2f(565, 18));
 
 	health.setFont(font);
 	health.setColor(sf::Color::Black);
 	health.setCharacterSize(20);
-	health.setPosition(sf::Vector2f(950, 30));
-	
-	score2.setFont(font);
-	score2.setColor(sf::Color::Black);
-	score2.setCharacterSize(20);
-	score2.setPosition(sf::Vector2f(100, 10));
-
-	health2.setFont(font);
-	health2.setColor(sf::Color::Black);
-	health2.setCharacterSize(20);
-	health2.setPosition(sf::Vector2f(100, 30));
+	health.setPosition(sf::Vector2f(565, 38));
 
 	winner.setFont(font);
 	winner.setColor(sf::Color::White);
-	winner.setPosition(830, 450);
+	winner.setPosition(530, 450);
 }
