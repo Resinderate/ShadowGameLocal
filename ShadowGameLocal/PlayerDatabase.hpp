@@ -13,6 +13,7 @@ public:
 	PlayerDatabase();
 	void Update(ShadowFactory p_shadowFactory, float p_delta, std::vector<Item>& p_items);
 	bool AddPlayer(Player &p_player);
+	bool RemovePlayer(Player &p_player);
 	inline std::vector<Player> &GetPlayers() { return m_players; }
 private:
 	std::vector<Player> m_players;

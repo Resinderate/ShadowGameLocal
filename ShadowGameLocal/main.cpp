@@ -10,6 +10,7 @@
 #include <iostream>
 #include "SFML/Audio.hpp"
 #include "ItemDatabase.hpp"
+#include "World.hpp"
 
 //Music
 sf::Music music;
@@ -31,10 +32,13 @@ bool displayEnd = false;
 sf::Text winner;
 
 //Players
-PlayerDatabase players;
-ItemDatabase items;
-
 Player p1;
+
+//PlayerDatabase players;
+//ItemDatabase items;
+
+World world;
+
 
 ShadowFactory shadowFactory;
 TexturedWorld texturedWorld;
@@ -103,15 +107,16 @@ void Update()
 	if (!displayStart && !displayEnd)
 	{
 		deltaTime = timer.restart().asSeconds();
-		players.Update(shadowFactory, deltaTime, items.GetItems());
-		items.Update(shadowFactory, deltaTime);
+		//players.Update(shadowFactory, deltaTime, items.GetItems());
+		//items.Update(shadowFactory, deltaTime);
+		world.Update(shadowFactory, deltaTime);
 
 		float rate = 0.1;
-		p1Cen = p1View.getCenter() + ((players.GetPlayers()[0].getPosition() - p1View.getCenter()) * rate);
+		p1Cen = p1View.getCenter() + ((world.GetPlayerDatabase().GetPlayers()[0].getPosition() - p1View.getCenter()) * rate);
 		p1View.setCenter(p1Cen);
 
-		score.setString(players.GetPlayers()[0].GetUsername() + " Lives :\t\t" + std::to_string(players.GetPlayers()[0].GetScore()));
-		health.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
+		score.setString(world.GetPlayerDatabase().GetPlayers()[0].GetUsername() + " Lives :\t\t" + std::to_string(world.GetPlayerDatabase().GetPlayers()[0].GetScore()));
+		health.setString(world.GetPlayerDatabase().GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(world.GetPlayerDatabase().GetPlayers()[0].GetHealth()));
 
 		// Check the end game.
 		// Needs to be changed for Multiplayer
@@ -147,17 +152,17 @@ void Draw()
 		for (auto spr : texturedWorld.getTexturedWorld())
 			window.draw(spr);
 
-		if (!players.GetPlayers()[0].GetIsDead())
-			window.draw(players.GetPlayers()[0]);
+		if (!world.GetPlayerDatabase().GetPlayers()[0].GetIsDead())
+			window.draw(world.GetPlayerDatabase().GetPlayers()[0]);
 
 		//Draw Items
-		for (auto itm : items.GetItems())
+		for (auto itm : world.GetItemDatabase().GetItems())
 		{
 			window.draw(itm);
 		}
 
 		// Draw shadows
-		sf::Vector2f castingPos = sf::Vector2f(players.GetPlayers()[0].getPosition());
+		sf::Vector2f castingPos = sf::Vector2f(world.GetPlayerDatabase().GetPlayers()[0].getPosition());
 		for (auto sha : shadowFactory.getShadows(castingPos, sf::Color::Black))
 			window.draw(sha);
 
@@ -253,14 +258,14 @@ void LoadWorld()
 {
 	if (!shadowFactory.load())
 		return;
-	items = ItemDatabase();
+	world = World();
 }
 void LoadPlayers()
 {
 	//Kevin
 	p1 = Player("Player 1", "pass", sf::Vector2f(150, 50), 2, animations1);
-	players = PlayerDatabase();
-	players.AddPlayer(p1);
+	//players = PlayerDatabase();
+	world.AddPlayer(p1);
 }
 
 void LoadHUD()
