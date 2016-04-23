@@ -58,6 +58,8 @@ std::vector<Animation> animations2;
 //Methods
 void Update();
 void Draw();
+void DisplayStart();
+void DisplayEnd();
 void Load();
 void LoadMusic();
 void LoadTextures();
@@ -66,6 +68,7 @@ void LoadAnimation();
 void LoadWorld();
 void LoadPlayers();
 void LoadHUD();
+void SetupFont(sf::Text &p_text, sf::Font &p_font, sf::Color p_color, int p_size, sf::Vector2f p_pos);
 
 sf::RenderWindow window(sf::VideoMode(840, 700), "Shadow");
 
@@ -127,16 +130,11 @@ void Draw()
 
 	if (displayStart)
 	{
-		window.setView(window.getDefaultView());
-		window.draw(startSpr);
-		window.display();
+		DisplayStart();
 	}
 	else if (displayEnd)
 	{
-		window.setView(window.getDefaultView());
-		window.draw(endSpr);
-		window.draw(winner);
-		window.display();
+		DisplayEnd();
 	}
 	else
 	{
@@ -172,6 +170,22 @@ void Draw()
 		window.display();
 	}
 }
+
+void DisplayStart()
+{
+	window.setView(window.getDefaultView());
+	window.draw(startSpr);
+	window.display();
+}
+
+void DisplayEnd()
+{
+	window.setView(window.getDefaultView());
+	window.draw(endSpr);
+	window.draw(winner);
+	window.display();
+}
+
 void Load()
 {
 	LoadMusic();
@@ -253,17 +267,17 @@ void LoadHUD()
 	if (!hudT.loadFromFile("spritesheet/HUD.png"))
 		return;
 	hud.setTexture(hudT);
-
-	SetupFont(score, font, sf::Color::Black, 20, 565, 18);
-	SetupFont(health, font, sf::Color::Black, 20, 565, 38);
-	SetupFont(winner, font, sf::Color::White, 20, 530, 450);
+	
+	SetupFont(score, font, sf::Color::Black, 20, sf::Vector2f(565, 18));
+	SetupFont(health, font, sf::Color::Black, 20, sf::Vector2f(565, 38));
+	SetupFont(winner, font, sf::Color::White, 20, sf::Vector2f(530, 450));
 
 }
 
-void SetupFont(sf::Text p_text, sf::Font p_font, sf::Color p_color, int p_size, float p_x, float p_y)
+void SetupFont(sf::Text &p_text, sf::Font &p_font, sf::Color p_color, int p_size, sf::Vector2f p_pos)
 {
 	p_text.setFont(p_font);
 	p_text.setColor(p_color);
 	p_text.setCharacterSize(p_size);
-	p_text.setPosition(sf::Vector2f(p_x, p_y));
+	p_text.setPosition(p_pos);
 }
