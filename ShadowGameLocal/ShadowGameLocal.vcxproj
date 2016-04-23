@@ -166,6 +166,7 @@
     <ClCompile Include="ShadowFactory.cpp" />
     <ClCompile Include="TexturedWorld.cpp" />
     <ClCompile Include="Trigonometry.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.hpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="TexturedWorld.hpp" />
     <ClInclude Include="Trigonometry.hpp" />
     <ClInclude Include="VectorAlgebra2D.hpp" />
+    <ClInclude Include="World.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="VectorAlgebra2D.inl" />

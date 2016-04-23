@@ -32,8 +32,9 @@ sf::Text winner;
 
 //Players
 PlayerDatabase players;
-Player p1;
 ItemDatabase items;
+
+Player p1;
 
 ShadowFactory shadowFactory;
 TexturedWorld texturedWorld;
