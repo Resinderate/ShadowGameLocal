@@ -113,14 +113,15 @@ void Update()
 		health.setString(players.GetPlayers()[0].GetUsername() + " Health :\t  " + std::to_string(players.GetPlayers()[0].GetHealth()));
 
 		// Check the end game.
-		for (auto &p : players.GetPlayers())
+		// Needs to be changed for Multiplayer
+	/*	for (auto &p : players.GetPlayers())
 		{
 			if (p.GetScore() >= 3)
 			{
 				winner.setString("Winner: " + p.GetUsername());
 				displayEnd = true;
 			}
-		}
+		}*/
 	}
 }
 

@@ -19,7 +19,7 @@ Player::Player(std::string p_username, std::string p_password, sf::Vector2f p_po
 	m_isDead = false;
 	m_maxHealth = 10;
 	m_health = m_maxHealth;
-	m_score = 0;
+	m_score = 3;
 	m_attackDelay = 1;
 	m_timeSinceLastAttack = 0;
 
@@ -84,7 +84,7 @@ void Player::CheckCollisions(std::vector<Item>& p_items)
 	if (!p_items.empty()) {
 		for (auto itr = p_items.begin(); itr < p_items.end(); itr++)
 		{
-			if (itr->getGlobalBounds().intersects(getGlobalBounds()))
+			if (itr->getGlobalBounds().intersects(getGlobalBounds()) && m_health < 255)
 			{
 				itr->GetDestroy() = true;
 				m_health++;
@@ -150,7 +150,7 @@ void Player::Attack(std::vector<Player> &p_players)
 				if (itr->GetHealth() <= 0)
 				{
 					itr->GetIsDead() = true;
-					m_score++;
+					itr->GetScore()--;
 				}
 				m_timeSinceLastAttack = 0;
 			}
