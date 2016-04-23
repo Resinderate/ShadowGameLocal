@@ -254,17 +254,16 @@ void LoadHUD()
 		return;
 	hud.setTexture(hudT);
 
-	score.setFont(font);
-	score.setColor(sf::Color::Black);
-	score.setCharacterSize(20);
-	score.setPosition(sf::Vector2f(565, 18));
+	SetupFont(score, font, sf::Color::Black, 20, 565, 18);
+	SetupFont(health, font, sf::Color::Black, 20, 565, 38);
+	SetupFont(winner, font, sf::Color::White, 20, 530, 450);
 
-	health.setFont(font);
-	health.setColor(sf::Color::Black);
-	health.setCharacterSize(20);
-	health.setPosition(sf::Vector2f(565, 38));
+}
 
-	winner.setFont(font);
-	winner.setColor(sf::Color::White);
-	winner.setPosition(530, 450);
+void SetupFont(sf::Text p_text, sf::Font p_font, sf::Color p_color, int p_size, float p_x, float p_y)
+{
+	p_text.setFont(p_font);
+	p_text.setColor(p_color);
+	p_text.setCharacterSize(p_size);
+	p_text.setPosition(sf::Vector2f(p_x, p_y));
 }
